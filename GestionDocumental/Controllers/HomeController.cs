@@ -24,7 +24,11 @@ namespace GestionDocumental.Controllers
         {
             ViewBag.Message = "Your contact page.";
 
-            return View();
+            //return View("About");
+
+            //return RedirectToAction("About"); // Llama el método About dentro de la misma clase
+            //o el mismo controlador (en este caso HomeController.cs)
+            return RedirectToAction("login", "Persona"); //Llama al método login dentro del controlador persona
         }
     }
 }
