@@ -15,10 +15,10 @@ namespace GestionDocumental.Models
     using System.Data.Entity.Core.Objects;
     using System.Linq;
     
-    public partial class proyecto_radicadoEntities : DbContext
+    public partial class proyecto_radicadoEntities1 : DbContext
     {
-        public proyecto_radicadoEntities()
-            : base("name=proyecto_radicadoEntities")
+        public proyecto_radicadoEntities1()
+            : base("name=proyecto_radicadoEntities1")
         {
         }
     

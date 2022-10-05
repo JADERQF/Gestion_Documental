@@ -19,48 +19,38 @@ namespace GestionDocumental.Controllers
 
         [HttpPost] //recibe datos por metodo POST
 
-        public ActionResult prb(FormCollection formCollection) //recibe un parámetro de tipo formulario
+        public ActionResult login(FormCollection formCollection) //recibe un parámetro de tipo formulario
         {
-                    using (var db = new proyecto_radicadoEntities()) //instanciamos un objeto de la db.
-                    {
-                        string usuario = formCollection["usuario"]; //guardo el valor de input usuario
-                        string pass1 = formCollection["pass"];
-                        byte[] pass = Encoding.ASCII.GetBytes(pass1);       //guardo el valor de input pass
-                        
+            using (var db = new proyecto_radicadoEntities1()) //instanciamos un objeto de la db.
+            {
+                string usuario = formCollection["usuario"]; //guardo el valor de input usuario
+                string pass = formCollection["pass"];       //guardo el valor de input pass
+                //byte[] pass = Encoding.ASCII.GetBytes(pass1);       //guardo el valor de input pass
 
-                        var user = db.persona.FirstOrDefault(e => e.usuario == usuario && e.Clave == pass);
+
+                var user = db.persona.FirstOrDefault(e => e.usuario == usuario && e.clave == pass);
                 if (user != null)
                 {
                     ViewBag.Message = "Entro care' verga";
-                    return View();
+                    return RedirectToAction("Index","Home");
                 }
-                else {
-                    ViewBag.Message = "NO Entro care' verga";
-                    return View();
+                else
+                {
+                    //ViewBag.Message = "NO Entro care' verga";
+                    return Login("Credenciales incorrectas");
                 }
-                          
-                        
-                }
-            
+
+
+            }
+
 
             //string usuario = formCollection["usuario"]; //guardo el valor de input usuario
             //Byte[] clave = Encoding.Unicode.GetBytes(formCollection["pass"]);    
-
-
-
-
-
-    
-
-          
         }
-
-        public ActionResult login()
+        public ActionResult Login(string mensaje = " ")
         {
-            //ViewBag.Message = "Your contact page.";
-
+            ViewBag.Message = mensaje;
             return View();
         }
-
     }
 }

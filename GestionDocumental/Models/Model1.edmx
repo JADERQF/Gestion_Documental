@@ -53,7 +53,7 @@
           <Property Name="documento" Type="varchar" MaxLength="10" Nullable="false" />
           <Property Name="telefono" Type="varchar" MaxLength="10" Nullable="false" />
           <Property Name="usuario" Type="varchar" MaxLength="20" Nullable="false" />
-          <Property Name="Clave" Type="binary" MaxLength="16" Nullable="false" />
+          <Property Name="clave" Type="varchar" MaxLength="100" Nullable="false" />
           <Property Name="estado" Type="bit" Nullable="false" />
           <Property Name="Id_Area" Type="int" Nullable="false" />
           <Property Name="Id_Rol" Type="int" Nullable="false" />
@@ -307,7 +307,7 @@
           <Property Name="documento" Type="String" MaxLength="10" FixedLength="false" Unicode="false" Nullable="false" />
           <Property Name="telefono" Type="String" MaxLength="10" FixedLength="false" Unicode="false" Nullable="false" />
           <Property Name="usuario" Type="String" MaxLength="20" FixedLength="false" Unicode="false" Nullable="false" />
-          <Property Name="Clave" Type="Binary" MaxLength="16" FixedLength="true" Nullable="false" />
+          <Property Name="clave" Type="String" MaxLength="100" FixedLength="false" Unicode="false" Nullable="false" />
           <Property Name="estado" Type="Boolean" Nullable="false" />
           <Property Name="Id_Area" Type="Int32" Nullable="false" />
           <Property Name="Id_Rol" Type="Int32" Nullable="false" />
@@ -440,7 +440,7 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <EntityContainer Name="proyecto_radicadoEntities" annotation:LazyLoadingEnabled="true">
+        <EntityContainer Name="proyecto_radicadoEntities1" annotation:LazyLoadingEnabled="true">
           <EntitySet Name="area" EntityType="Self.area" />
           <EntitySet Name="documento" EntityType="Self.documento" />
           <EntitySet Name="estado" EntityType="Self.estado" />
@@ -525,7 +525,7 @@
     <!-- C-S mapping content -->
     <edmx:Mappings>
       <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
-        <EntityContainerMapping StorageEntityContainer="proyecto_radicadoModelStoreContainer" CdmEntityContainer="proyecto_radicadoEntities">
+        <EntityContainerMapping StorageEntityContainer="proyecto_radicadoModelStoreContainer" CdmEntityContainer="proyecto_radicadoEntities1">
           <EntitySetMapping Name="area">
             <EntityTypeMapping TypeName="proyecto_radicadoModel.area">
               <MappingFragment StoreEntitySet="area">
@@ -577,7 +577,7 @@
                 <ScalarProperty Name="documento" ColumnName="documento" />
                 <ScalarProperty Name="telefono" ColumnName="telefono" />
                 <ScalarProperty Name="usuario" ColumnName="usuario" />
-                <ScalarProperty Name="Clave" ColumnName="Clave" />
+                <ScalarProperty Name="clave" ColumnName="clave" />
                 <ScalarProperty Name="estado" ColumnName="estado" />
                 <ScalarProperty Name="Id_Area" ColumnName="Id_Area" />
                 <ScalarProperty Name="Id_Rol" ColumnName="Id_Rol" />

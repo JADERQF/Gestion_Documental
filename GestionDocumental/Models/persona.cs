@@ -28,7 +28,7 @@ namespace GestionDocumental.Models
         public string documento { get; set; }
         public string telefono { get; set; }
         public string usuario { get; set; }
-        public byte[] Clave { get; set; }
+        public string clave { get; set; }
         public bool estado { get; set; }
         public int Id_Area { get; set; }
         public int Id_Rol { get; set; }
