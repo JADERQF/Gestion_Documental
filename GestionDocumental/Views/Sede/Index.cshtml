@@ -1,0 +1,43 @@
+﻿@model List<GestionDocumental.Models.ListViewSede>
+
+    <p>
+        @Html.ActionLink("Nueva Sucursal", "Create")
+    </p>
+
+
+    <table class="table">
+        <tr>
+            <th>
+                #
+            </th>
+            <th>
+                Sede
+            </th>
+            <th>
+                Ciudad
+            </th>
+            <th>
+                Funciones
+            </th>
+        </tr>
+
+        @foreach (var item in Model)
+        {
+            <tr>
+                <td>
+                    @Html.DisplayFor(modelItem => item.SedeId)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.SedeName)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.MunicipioId)
+                </td>
+                <td>
+                    @Html.ActionLink("Eliminar", "Delete", new { id = item.SedeId })
+                    @Html.ActionLink(".", "Edit", new { id = item.SedeId}, new { @class = "glyphicon glyphicon-edit", style = "color: black" })
+                </td>
+            </tr>
+        }
+
+    </table>

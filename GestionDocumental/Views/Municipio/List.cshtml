@@ -1,0 +1,39 @@
+﻿@model  List<GestionDocumental.Models.ListViewMunicipio>
+
+    <p">
+        @Html.ActionLink("Nueva Sucursal", "Create")
+    </p>
+
+
+<table class="table-responsive">
+    <tr>
+        <th>
+            #
+        </th>
+        <th> Nombre Municipio</th>
+    </tr>
+
+    @foreach (var item in Model)
+    {
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.Id)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.NombreMunicipio)
+            </td>
+        </tr>
+    }
+
+</table>
+<form>
+    <label for="ciudad"></label>
+    <select name="ciudad" id="ciudad">
+        @foreach (var item in Model)
+        {
+            <option>@Html.DisplayFor(modelItem => item.NombreMunicipio)</option>
+        }
+        </select>    
+    
+
+</form>
