@@ -86,15 +86,19 @@ namespace GestionDocumental.Controllers
         }
     // POST: Sede/Edit/5
     [HttpPost]
-        public ActionResult Edit(ListViewSede collection)
+        [ValidateAntiForgeryToken]
+        public ActionResult Editar(ListViewSede collection)
         {
             try
             {
+                
                 using (proyecto_radicadoEntities1 db = new proyecto_radicadoEntities1())
                 {
+                    //Console.WriteLine(string.Join(", ", collection));
                     var table = db.sede.Find(collection.SedeId);
                     table.nombreSede = collection.SedeName;
                     table.Id_Municipio = collection.MunicipioId;
+                    table.IdSede = collection.SedeId;
                     db.Entry(table).State = System.Data.Entity.EntityState.Modified;
                     db.SaveChanges();
 
@@ -116,6 +120,7 @@ namespace GestionDocumental.Controllers
                 //ListViewSede model = new ListViewSede();
                 using (proyecto_radicadoEntities1 db = new proyecto_radicadoEntities1())
                 {
+                    Console.WriteLine("Hola");
                     var table = db.sede.Find(Id);
                     db.sede.Remove(table);
                     db.SaveChanges();
