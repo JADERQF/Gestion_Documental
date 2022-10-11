@@ -20,8 +20,7 @@ namespace GestionDocumental.Controllers
                          {
                              SedeId = x.IdSede,
                              SedeName = x.nombreSede,
-                             MunicipioId = x.Id_Municipio
-                         }
+                             MunicipioId = x.Id_Municipio                         }
                          ).ToList();
             }
             return View(lista);
@@ -39,21 +38,18 @@ namespace GestionDocumental.Controllers
         {
             try
             {
-               // if(ModelState.IsValid) //Valida los dataNotation
+                // if(ModelState.IsValid) //Valida los dataNotation
                 //{
-                    using (proyecto_radicadoEntities1 db = new proyecto_radicadoEntities1())
-                    {
-                        var table = new sede();
-                        table.nombreSede = collection.SedeName;
-                        table.Id_Municipio = collection.MunicipioId;
-                        table.estado = true; //Adecuar desde la BD
-                        db.sede.Add(table);
-                        db.SaveChanges();
-                        return RedirectToAction("Index");
-                    }
-               // }
-
-                //return RedirectToAction("Index");
+                using (proyecto_radicadoEntities1 db = new proyecto_radicadoEntities1())
+                {
+                    var table = new sede();
+                    table.nombreSede = collection.SedeName;
+                    table.Id_Municipio = collection.MunicipioId;
+                    table.estado = true; //Adecuar desde la BD
+                    db.sede.Add(table);
+                    db.SaveChanges();
+                    return RedirectToAction("Index");
+                }
             }
             catch
             {
@@ -66,7 +62,7 @@ namespace GestionDocumental.Controllers
         {
             try
             {
-                 ListViewSede model = new ListViewSede();
+                ListViewSede model = new ListViewSede();
                 using (proyecto_radicadoEntities1 bd = new proyecto_radicadoEntities1())
                 {
                     var table = bd.sede.Find(id); //encuentra el id del registro
@@ -76,22 +72,20 @@ namespace GestionDocumental.Controllers
                 }
                 return View(model); //Retorna los datos del registro seleccionado
             }
-
             catch (Exception ex)
             {
                 throw (ex);
             }
 
-                
+
         }
-    // POST: Sede/Edit/5
-    [HttpPost]
+        // POST: Sede/Edit/5
+        [HttpPost]
         [ValidateAntiForgeryToken]
         public ActionResult Editar(ListViewSede collection)
         {
             try
             {
-                
                 using (proyecto_radicadoEntities1 db = new proyecto_radicadoEntities1())
                 {
                     //Console.WriteLine(string.Join(", ", collection));
@@ -101,7 +95,6 @@ namespace GestionDocumental.Controllers
                     table.IdSede = collection.SedeId;
                     db.Entry(table).State = System.Data.Entity.EntityState.Modified;
                     db.SaveChanges();
-
                 }
                 return Redirect("Index");
             }
@@ -112,25 +105,22 @@ namespace GestionDocumental.Controllers
         }
 
         // POST: Sede/Delete/5
-        [HttpPost]
+        [HttpGet]
         public ActionResult Delete(int Id)
         {
             try
             {
-                //ListViewSede model = new ListViewSede();
                 using (proyecto_radicadoEntities1 db = new proyecto_radicadoEntities1())
                 {
-                    Console.WriteLine("Hola");
                     var table = db.sede.Find(Id);
                     db.sede.Remove(table);
                     db.SaveChanges();
                 }
-
-                    return View("Index");
+                return View("Index");
             }
-            catch(Exception ex)
+            catch (Exception ex)
             {
-                throw(ex); 
+                throw (ex);
             }
         }
     }
