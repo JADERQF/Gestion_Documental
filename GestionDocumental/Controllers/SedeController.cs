@@ -18,7 +18,7 @@ namespace GestionDocumental.Controllers
                 lista = (from x in db.sede
                          select new ListViewSede
                          {
-                             SedeId = x.IdSede,
+                             SedeId = x.IdSede, //Asignamos valores a la lista
                              SedeName = x.nombreSede,
                              MunicipioId = x.Id_Municipio
                          }
@@ -113,7 +113,7 @@ namespace GestionDocumental.Controllers
 
         // POST: Sede/Delete/5
         [HttpPost]
-        public ActionResult Delete(int Id)
+        public ActionResult Delete(int col)
         {
             try
             {
@@ -121,7 +121,7 @@ namespace GestionDocumental.Controllers
                 using (proyecto_radicadoEntities1 db = new proyecto_radicadoEntities1())
                 {
                     Console.WriteLine("Hola");
-                    var table = db.sede.Find(Id);
+                    var table = db.sede.Find(col);
                     db.sede.Remove(table);
                     db.SaveChanges();
                 }
