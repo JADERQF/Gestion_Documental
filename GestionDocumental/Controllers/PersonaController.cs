@@ -31,7 +31,7 @@ namespace GestionDocumental.Controllers
                 var user = db.persona.FirstOrDefault(e => e.usuario == usuario && e.clave == pass);
                 if (user != null)
                 {
-                    ViewBag.Message = "BIENVENIDO...";
+                    ViewBag.Message = "Entro care' verga";
                     return RedirectToAction("Index","Home");
                 }
                 else

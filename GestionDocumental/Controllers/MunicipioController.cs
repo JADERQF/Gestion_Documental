@@ -9,6 +9,20 @@ namespace GestionDocumental.Controllers
 {
     public class MunicipioController : Controller
     {
+        public ActionResult Index()
+        {
+            List<ListViewMunicipio> lista;
+            using (proyecto_radicadoEntities1 db = new proyecto_radicadoEntities1())
+            {
+                lista = (from x in db.municipio
+                         select new ListViewMunicipio
+                         {
+                             Id = x.IdMunicipio,
+                             NombreMunicipio = x.nombreMunicipio
+                         }).ToList();
+            }
+            return View(lista);
+        }
         // GET: Sucursal
         public ActionResult List()
         {
@@ -28,13 +42,19 @@ namespace GestionDocumental.Controllers
      
         // POST: Sucursal/Create
         [HttpPost]
-        public ActionResult Create(FormCollection collection)
+        public ActionResult Create(ListViewMunicipio collection)
         {
             try
             {
-                // TODO: Add insert logic here
-
-                return RedirectToAction("List");
+                using (proyecto_radicadoEntities1 db = new proyecto_radicadoEntities1())
+                {
+                    var table = new municipio();
+                    table.IdMunicipio = collection.Id;
+                    table.nombreMunicipio = collection.NombreMunicipio;
+                    db.municipio.Add(table);
+                    db.SaveChanges();
+                    return RedirectToAction("Index");
+                }
             }
             catch
             {
@@ -45,17 +65,39 @@ namespace GestionDocumental.Controllers
         // GET: Sucursal/Edit/5
         public ActionResult Edit(int id)
         {
-            return View();
+            try
+            {
+                ListViewMunicipio model = new ListViewMunicipio();
+                using (proyecto_radicadoEntities1 db = new proyecto_radicadoEntities1())
+                {
+                    var table = db.municipio.Find(id);
+                    model.Id = table.IdMunicipio;
+                    model.NombreMunicipio = table.nombreMunicipio;
+                }
+                return View(model);
+            }
+            catch (Exception ex)
+            {
+
+                throw(ex);
+            }
         }
 
         // POST: Sucursal/Edit/5
         [HttpPost]
-        public ActionResult Edit(int id, FormCollection collection)
+        [ValidateAntiForgeryToken]
+        public ActionResult Edit(ListViewMunicipio collection)
         {
             try
             {
-                // TODO: Add update logic here
-
+                using (proyecto_radicadoEntities1 db = new proyecto_radicadoEntities1())
+                {
+                    var table = db.municipio.Find(collection.Id);
+                    table.IdMunicipio = collection.Id;
+                    table.nombreMunicipio = collection.NombreMunicipio;
+                    db.Entry(table).State = System.Data.Entity.EntityState.Modified;
+                    db.SaveChanges();
+                }
                 return RedirectToAction("Index");
             }
             catch
@@ -65,25 +107,25 @@ namespace GestionDocumental.Controllers
         }
 
         // GET: Sucursal/Delete/5
+        [HttpGet]
         public ActionResult Delete(int id)
-        {
-            return View();
-        }
-
-        // POST: Sucursal/Delete/5
-        [HttpPost]
-        public ActionResult Delete(int id, FormCollection collection)
         {
             try
             {
-                // TODO: Add delete logic here
-
-                return RedirectToAction("Index");
+                using (proyecto_radicadoEntities1 db = new proyecto_radicadoEntities1())
+                {
+                    var table = db.municipio.Find(id);
+                    db.municipio.Remove(table);
+                    db.SaveChanges();
+                }
+                return View("Index");
             }
-            catch
+            catch (Exception ex)
             {
-                return View();
+
+                throw(ex);
             }
+            return View();
         }
     }
 }
