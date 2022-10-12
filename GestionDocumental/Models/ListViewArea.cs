@@ -6,16 +6,16 @@ using System.Web;
 
 namespace GestionDocumental.Models
 {
-    public class ListViewSede
+    public class ListViewArea
     {
         [Required]
-        public int SedeId { get; set; }
+        public int Id_sede { get; set; }
 
         [Required]
-        public string SedeName { get; set; }
+       public string Nombre_Area { get; set; }
 
-        [Required]
-        public int MunicipioId { get; set; } //Valor por defecto
+        public Boolean estado { get; set; }
+        
 
     }
 }

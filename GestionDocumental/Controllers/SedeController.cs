@@ -98,9 +98,12 @@ namespace GestionDocumental.Controllers
                 }
                 return Redirect("Index");
             }
-            catch
+            catch (Exception ex)    
             {
+                //throw (ex);
+                ModelState.AddModelError("", "Error" + ex);
                 return View();
+                throw;
             }
         }
 
