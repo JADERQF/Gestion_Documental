@@ -112,16 +112,20 @@ namespace GestionDocumental.Controllers
             {
                 using (proyecto_radicadoEntities1 db = new proyecto_radicadoEntities1())
                 {
-                    Console.WriteLine("Hola");
+                    
                     var table = db.sede.Find(Id);
                     db.sede.Remove(table);
                     db.SaveChanges();
+                    
                 }
-                return View("Index");
+                return RedirectToAction("Index");
             }
             catch (Exception ex)
             {
-                throw (ex);
+                //throw (ex);
+                ModelState.AddModelError("", "Error" + ex);
+                return View();
+                throw;
             }
         }
     }
