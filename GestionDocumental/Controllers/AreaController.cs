@@ -4,6 +4,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Web;
 using System.Web.Mvc;
+using System.Web.UI.WebControls;
 
 namespace GestionDocumental.Controllers
 {
@@ -43,6 +44,7 @@ namespace GestionDocumental.Controllers
                 {
                     var table = new area();
                     table.nombreArea = collection.Nombre_Area;
+                    table.estado = true;
                     //table.estado = true;
                     db.area.Add(table);
                     db.SaveChanges();
@@ -61,24 +63,44 @@ namespace GestionDocumental.Controllers
         // GET: Area/Edit/5
         public ActionResult Edit(int id)
         {
-            return View();
+            try
+            {
+                ListViewArea model = new ListViewArea();
+                using (proyecto_radicadoEntities1 bd = new proyecto_radicadoEntities1())
+                {
+                    var table = bd.area.Find(id); //encuentra el id del registro
+                    model.Id_sede = table.IdArea;
+                    model.Nombre_Area = table.nombreArea;
+                    model.estado = table.estado;
+                }
+                return View(model); //Retorna los datos del registro seleccionado
+            }
+            catch (Exception ex)
+            {
+                //throw (ex);
+                ModelState.AddModelError("", "Error" + ex);
+                return View();
+                throw;
+            }
         }
 
         // POST: Area/Edit/5
-
-        public ActionResult Editar(int id)
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public ActionResult Editar(ListViewArea collection)
         {
             try
             {
-                ListViewArea lista = new ListViewArea();
-                using (proyecto_radicadoEntities1 bd = new proyecto_radicadoEntities1())
+                using (proyecto_radicadoEntities1 db = new proyecto_radicadoEntities1())
                 {
-                    var table = bd.area.Find(id);
-                    lista.Nombre_Area = table.nombreArea;
-                    lista.estado = table.estado;
+                    var table = db.area.Find(collection.Id_sede);//Encuentra el registro a editar
+                    table.nombreArea = collection.Nombre_Area;//Asigna valores al registro a editar
+                    table.estado = collection.estado;//Asigna valores al registro a editar
+                    db.Entry(table).State = System.Data.Entity.EntityState.Modified;//guarda cambios
+                    db.SaveChanges();//confirma cambios
                 }
 
-                return View(lista);
+                return Redirect("Index");
             }
             catch (Exception ex) 
             {
@@ -90,24 +112,27 @@ namespace GestionDocumental.Controllers
         }
 
         // GET: Area/Delete/5
-        public ActionResult Delete(int id)
-        {
-            return View();
-        }
 
         // POST: Area/Delete/5
-        [HttpPost]
-        public ActionResult Delete(int id, FormCollection collection)
+        [HttpGet]
+        public ActionResult Delete(int Id)
         {
             try
             {
-                // TODO: Add delete logic here
-
+                using (proyecto_radicadoEntities1 db = new proyecto_radicadoEntities1())
+                {
+                    var table = db.area.Find(Id);
+                    db.area.Remove(table);
+                    db.SaveChanges();
+                }
                 return RedirectToAction("Index");
             }
-            catch
+            catch (Exception ex)    
             {
+                //throw (ex);
+                ModelState.AddModelError("", "Error" + ex);
                 return View();
+                throw;
             }
         }
     }

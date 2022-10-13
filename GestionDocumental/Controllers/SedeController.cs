@@ -89,12 +89,12 @@ namespace GestionDocumental.Controllers
                 using (proyecto_radicadoEntities1 db = new proyecto_radicadoEntities1())
                 {
                     //Console.WriteLine(string.Join(", ", collection));
-                    var table = db.sede.Find(collection.SedeId);
-                    table.nombreSede = collection.SedeName;
+                    var table = db.sede.Find(collection.SedeId); //Encuentra el registro a editar
+                    table.nombreSede = collection.SedeName; //Asigna valores al registro a editar
                     table.Id_Municipio = collection.MunicipioId;
                     table.IdSede = collection.SedeId;
-                    db.Entry(table).State = System.Data.Entity.EntityState.Modified;
-                    db.SaveChanges();
+                    db.Entry(table).State = System.Data.Entity.EntityState.Modified; //guarda cambios
+                    db.SaveChanges();//confirma cambios
                 }
                 return Redirect("Index");
             }
