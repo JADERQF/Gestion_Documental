@@ -8,7 +8,7 @@
     <table class="table">
         <tr>
             <th>
-                #
+                ID
             </th>
             <th>
                 Sede
@@ -18,6 +18,9 @@
             </th>
             <th>
                 Funciones
+            </th>
+            <th>
+                Estado
             </th>
         </tr>
 
@@ -31,11 +34,15 @@
                     @Html.DisplayFor(modelItem => item.SedeName)
                 </td>
                 <td>
-                    @Html.DisplayFor(modelItem => item.MunicipioId)
+                    @GestionDocumental.Controllers.SedeController.NombreMunicipio(item.MunicipioId)
                 </td>
                 <td>
-                    @Html.ActionLink("Eliminar", "Delete", new {id = item.SedeId })
-                    @Html.ActionLink(".", "Edit", new { id = item.SedeId}, new { @class = "glyphicon glyphicon-edit", style = "color: black" })
+                    @Html.ActionLink("Eliminar", "Delete", new { id = item.SedeId })
+                    @Html.ActionLink(" ", "Edit", new { id = item.SedeId }, new { @class = "glyphicon glyphicon-edit", style = "color: black" })
+                    @Html.ActionLink(" ", "Status", new { id = item.SedeId }, new { @class = "glyphicon glyphicon-lock"})
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Estado)
                 </td>
             </tr>
         }

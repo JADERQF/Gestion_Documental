@@ -1,6 +1,7 @@
 ﻿using GestionDocumental.Models;
 using System;
 using System.Collections.Generic;
+using System.Collections.ObjectModel;
 using System.Linq;
 using System.Web;
 using System.Web.Mvc;
@@ -20,13 +21,45 @@ namespace GestionDocumental.Controllers
                          {
                              SedeId = x.IdSede, //Asignamos valores a la lista
                              SedeName = x.nombreSede,
-                             MunicipioId = x.Id_Municipio
+                             MunicipioId = x.Id_Municipio,
+                             Estado = x.estado
                          }
                          ).ToList();
             }
             return View(lista);
         }
+        public static string NombreMunicipio(int Id)
+        {
+            using (proyecto_radicadoEntities1 db = new proyecto_radicadoEntities1())
+            {
+                return db.municipio.Find(Id).nombreMunicipio; //Retorna el nombre de la ciudad
+            }
+        }
+        [HttpGet]
+        public ActionResult Status(int Id)
+        {
+            try
+            {    using (proyecto_radicadoEntities1 db = new proyecto_radicadoEntities1())
+                {
+                    var lista = db.sede.Find(Id).estado; //
+                    if (!lista == true)
+                    {
+                        lista = true;
+                    }
+                    else { lista = false; }
 
+                    var table = db.sede.Find(Id); //Encuentra el registro a editar
+                    table.estado = lista;
+                    db.Entry(table).State = System.Data.Entity.EntityState.Modified; //guarda cambios
+                    db.SaveChanges();//confirma cambios
+                }
+                return View ("Index");
+            }
+            catch (Exception ex)
+            {
+                return View ("Error");  
+            }
+        }
         // GET: Sede/Create
         public ActionResult Create()
         {
@@ -48,13 +81,13 @@ namespace GestionDocumental.Controllers
                 {
                     return new SelectListItem()
                     {
-                        Text = t.NombreMunicipio.ToString(),
-                        Value = t.Id.ToString(),
-                        Selected = false
+                        Text = t.NombreMunicipio.ToString(), //Muestra el valor 
+                        Value = t.Id.ToString(), //Valor del Id del registro
+                        Selected = false  //valor por defecto del select
                     };
                 });
 
-                ViewBag.items = items;
+                ViewBag.items = items; //variable contiene los valores del select
                 return View();
             }
             catch (Exception ex)
@@ -93,14 +126,34 @@ namespace GestionDocumental.Controllers
         public ActionResult Edit(int id)
         {
             try
-            {
+            {                 
+                List<ListViewMunicipio> lst = null;
                 ListViewSede model = new ListViewSede();
                 using (proyecto_radicadoEntities1 bd = new proyecto_radicadoEntities1())
-                {
+                {   
                     var table = bd.sede.Find(id); //encuentra el id del registro
                     model.SedeId = table.IdSede;
                     model.SedeName = table.nombreSede;
                     model.MunicipioId = table.Id_Municipio;
+                    lst =
+                            (from t in bd.municipio
+                             select new ListViewMunicipio
+                             {
+                                 Id = t.IdMunicipio,
+                                 NombreMunicipio = t.nombreMunicipio
+                             }).ToList();
+
+                    List<SelectListItem> items = lst.ConvertAll(t =>
+                    {
+                        return new SelectListItem()
+                        {
+                            Text = t.NombreMunicipio.ToString(), //Muestra el valor 
+                            Value = t.Id.ToString(), //Valor del Id del registro
+                            Selected = t.Id==model.MunicipioId  //valor por defecto del select
+                        };
+                    });
+
+                    ViewBag.items = items; //variable contiene los valores del select
                 }
                 return View(model); //Retorna los datos del registro seleccionado
             }

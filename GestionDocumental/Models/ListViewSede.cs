@@ -12,10 +12,14 @@ namespace GestionDocumental.Models
         public int SedeId { get; set; }
 
         [Required]
+        [Display(Name = "Release Date")]
         public string SedeName { get; set; }
 
         [Required]
         public int MunicipioId { get; set; }
+
+        [Required]
+        public Boolean Estado { get; set; }
 
     }
 }
