@@ -1,0 +1,34 @@
+﻿@model IEnumerable<GestionDocumental.Models.ListViewArea>
+
+<p>
+    @Html.ActionLink("Nueva Area", "Create")
+</p>
+
+<table class="table">
+    <tr>
+        <th>
+            #
+        </th>
+        <th>
+            Area
+        </th>
+    </tr>
+    @foreach (var item in Model)
+    {
+        <tr>
+            <td>
+                @Html.DisplayFor(a => item.Id_sede)
+            </td>
+            <td>
+                @Html.DisplayFor(a => item.Nombre_Area)
+            </td>
+            <td>
+                @Html.ActionLink("Eliminar", "Delete", new { id = item.Id_sede })
+                @Html.ActionLink(".", "Edit", new { id = item.Id_sede }, new { @class = "glyphicon glyphicon-edit", style = "color: black" })
+            </td>
+        </tr>
+    }
+</table>
+
+
+

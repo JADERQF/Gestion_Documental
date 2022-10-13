@@ -125,7 +125,6 @@ namespace GestionDocumental.Controllers
 
                 throw(ex);
             }
-            return View();
         }
     }
 }

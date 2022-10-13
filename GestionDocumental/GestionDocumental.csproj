@@ -129,6 +129,7 @@
     <Compile Include="App_Start\BundleConfig.cs" />
     <Compile Include="App_Start\FilterConfig.cs" />
     <Compile Include="App_Start\RouteConfig.cs" />
+    <Compile Include="Controllers\AreaController.cs" />
     <Compile Include="Controllers\DocumentoController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\PersonaController.cs" />
@@ -146,6 +147,7 @@
     <Compile Include="Models\estado.cs">
       <DependentUpon>Model1.tt</DependentUpon>
     </Compile>
+    <Compile Include="Models\ListViewArea.cs" />
     <Compile Include="Models\ListViewDocumento.cs" />
     <Compile Include="Models\ListViewPersona.cs" />
     <Compile Include="Models\ListViewSede.cs" />
@@ -254,6 +256,9 @@
     <Content Include="Views\Sede\Edit.cshtml" />
     <Content Include="Views\Persona\Index.cshtml" />
     <Content Include="Views\Municipio\Index.cshtml" />
+    <Content Include="Views\Area\Index.cshtml" />
+    <Content Include="Views\Area\Create.cshtml" />
+    <Content Include="Views\Area\Edit.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
