@@ -15,7 +15,7 @@ namespace GestionDocumental.Models
         public string SedeName { get; set; }
 
         [Required]
-        public int MunicipioId { get; set; } //Valor por defecto
+        public int MunicipioId { get; set; }
 
     }
 }
