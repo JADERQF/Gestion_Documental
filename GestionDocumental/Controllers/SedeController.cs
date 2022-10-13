@@ -20,7 +20,8 @@ namespace GestionDocumental.Controllers
                          {
                              SedeId = x.IdSede, //Asignamos valores a la lista
                              SedeName = x.nombreSede,
-                             MunicipioId = x.Id_Municipio                         }
+                             MunicipioId = x.Id_Municipio
+                         }
                          ).ToList();
             }
             return View(lista);
@@ -29,7 +30,38 @@ namespace GestionDocumental.Controllers
         // GET: Sede/Create
         public ActionResult Create()
         {
-            return View();
+            try
+            {
+                List<ListViewMunicipio> lst = null;
+                using (proyecto_radicadoEntities1 db = new proyecto_radicadoEntities1())
+                {
+                    lst =
+                        (from t in db.municipio
+                         select new ListViewMunicipio
+                         {
+                             Id = t.IdMunicipio,
+                             NombreMunicipio = t.nombreMunicipio
+                         }).ToList();
+                }
+
+                List<SelectListItem> items = lst.ConvertAll(t =>
+                {
+                    return new SelectListItem()
+                    {
+                        Text = t.NombreMunicipio.ToString(),
+                        Value = t.Id.ToString(),
+                        Selected = false
+                    };
+                });
+
+                ViewBag.items = items;
+                return View();
+            }
+            catch (Exception ex)
+            {
+
+                throw (ex);
+            }
         }
 
         // POST: Sede/Create
@@ -112,11 +144,11 @@ namespace GestionDocumental.Controllers
             {
                 using (proyecto_radicadoEntities1 db = new proyecto_radicadoEntities1())
                 {
-                    
+
                     var table = db.sede.Find(Id);
                     db.sede.Remove(table);
                     db.SaveChanges();
-                    
+
                 }
                 return RedirectToAction("Index");
             }
