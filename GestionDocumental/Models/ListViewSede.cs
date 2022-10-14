@@ -8,14 +8,14 @@ namespace GestionDocumental.Models
 {
     public class ListViewSede
     {
-        [Required]
         public int SedeId { get; set; }
 
         [Required]
-        [Display(Name = "Release Date")]
+        [Display(Name = "Sede")]
         public string SedeName { get; set; }
 
         [Required]
+        [Display(Name = "Ciudad")]
         public int MunicipioId { get; set; }
 
         [Required]

@@ -10,13 +10,18 @@ namespace GestionDocumental.Controllers
 {
     public class SedeController : Controller
     {
+        proyecto_radicadoEntities1 __ConnectBD;
+
+        public SedeController()
+        {
+            __ConnectBD = new proyecto_radicadoEntities1();
+        }
         // GET: Sede
         public ActionResult Index()
         {
             List<ListViewSede> lista; //Crea un objeto de tipo ListViewSucursal
-            using (proyecto_radicadoEntities1 db = new proyecto_radicadoEntities1()) //Instanciamos un obj de la bd
-            {
-                lista = (from x in db.sede
+            
+                lista = (from x in __ConnectBD.sede
                          select new ListViewSede
                          {
                              SedeId = x.IdSede, //Asignamos valores a la lista
@@ -25,7 +30,6 @@ namespace GestionDocumental.Controllers
                              Estado = x.estado
                          }
                          ).ToList();
-            }
             return View(lista);
         }
         public static string NombreMunicipio(int Id)
@@ -103,22 +107,49 @@ namespace GestionDocumental.Controllers
         {
             try
             {
-                // if(ModelState.IsValid) //Valida los dataNotation
-                //{
+                if (ModelState.IsValid)
+                {
+                    using (proyecto_radicadoEntities1 db = new proyecto_radicadoEntities1())
+                    {
+                        var table = new sede();
+                        table.nombreSede = collection.SedeName;
+                        table.Id_Municipio = collection.MunicipioId;
+                        table.estado = true; //Adecuar desde la BD
+                        db.sede.Add(table);
+                        db.SaveChanges();
+                        return RedirectToAction("Index");
+                    }
+                }
+                List<ListViewMunicipio> lst = null;
                 using (proyecto_radicadoEntities1 db = new proyecto_radicadoEntities1())
                 {
-                    var table = new sede();
-                    table.nombreSede = collection.SedeName;
-                    table.Id_Municipio = collection.MunicipioId;
-                    table.estado = true; //Adecuar desde la BD
-                    db.sede.Add(table);
-                    db.SaveChanges();
-                    return RedirectToAction("Index");
+                    lst =
+                        (from t in db.municipio
+                         select new ListViewMunicipio
+                         {
+                             Id = t.IdMunicipio,
+                             NombreMunicipio = t.nombreMunicipio
+                         }).ToList();
                 }
-            }
-            catch
-            {
+
+                List<SelectListItem> items = lst.ConvertAll(t =>
+                {
+                    return new SelectListItem()
+                    {
+                        Text = t.NombreMunicipio.ToString(),
+                        Value = t.Id.ToString(),
+                        Selected = false
+                    };
+                });
+
+                ViewBag.items = items;
                 return View();
+            }
+            catch (Exception ex)    
+            {   //throw (ex);
+                ModelState.AddModelError("", "Error" + ex);
+                return View();
+                throw;
             }
         }
 
