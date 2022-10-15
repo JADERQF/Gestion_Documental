@@ -108,8 +108,17 @@ namespace GestionDocumental.Controllers
             {
                 using (proyecto_radicadoEntities1 db = new proyecto_radicadoEntities1())
                 {
-                    var table = db.tipo.Find
+                    var table = db.tipoDocumento.Find(Id);
+                    db.tipoDocumento.Remove(table);
+                    db.SaveChanges();
                 }
+                return RedirectToAction("Index");
+            }
+            catch (Exception ex)
+            {
+                ModelState.AddModelError("", "Error" + ex);
+                return View();
+                throw;
             }
         }
     }

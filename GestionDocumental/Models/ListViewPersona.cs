@@ -23,7 +23,7 @@ namespace GestionDocumental.Models
 
         public string clave { get; set; }
 
-        public byte estado { get; set; }
+        public Boolean estado { get; set; }
 
         public int Id_Area { get; set; }
 

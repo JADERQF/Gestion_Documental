@@ -11,10 +11,39 @@ namespace GestionDocumental.Controllers
 {
     public class PersonaController : Controller
     {
+        proyecto_radicadoEntities1 __ConnectBD;
+
+        public PersonaController()
+        {
+            __ConnectBD = new proyecto_radicadoEntities1();
+        }
+
         // GET: Persona
         public ActionResult Index()
         {
-            return View();
+            try
+            {
+                List<ListViewPersona> lista;
+
+                lista = (from x in __ConnectBD.persona
+                         select new ListViewPersona
+                         {
+                             IdPersona = x.IdPersona,
+                             primerNombre = x.primerNombre,
+                             segundoNombre = x.segundoNombre,
+                             primerApellido = x.primerApellido,
+                             segundoApellido = x.segundoApellido,
+                             documento = x.documento,
+                             estado = x.estado
+                         }
+                         ).ToList();
+                return View(lista);
+            }
+            catch (Exception ex)
+            {
+                return View(ex.Message);
+                throw;
+            }
         }
 
         [HttpPost] //recibe datos por metodo POST
