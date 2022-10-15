@@ -1,0 +1,52 @@
+﻿@model List<GestionDocumental.Models.ListViewTipo>
+<p>
+    @Html.ActionLink("Nuevo Tipo de Documento", "Create")
+</p>
+
+<h2>Tipo Documento</h2>
+
+<table class="table">
+    <tr>
+        <th>
+            ID
+        </th>
+        <th>
+            Documento
+        </th>
+        <th>
+            Tiempo Respuesta
+        </th>
+        <th>
+            Funciones
+        </th>
+        <th>
+            Estado
+        </th>
+    </tr>
+
+    @foreach (var item in Model)
+    {
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.tipoDocumentoId)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.nombreDocumento)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.tiempoRes) Dias
+            </td>
+            <td>
+                @Html.ActionLink("Eliminar", "Delete", new { id = item.tipoDocumentoId })
+                @Html.ActionLink(" ", "getId", new { id = item.tipoDocumentoId }, new { @class = "glyphicon glyphicon-edit", style = "color: black" })
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Estado)
+            </td>
+        </tr>
+    }
+
+</table>
+
+
+

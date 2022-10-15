@@ -22,10 +22,11 @@ namespace GestionDocumental.Models
     
         public int IdTipoDocumento { get; set; }
         public string nombreDocumento { get; set; }
-        public Nullable<int> tiempoRespuesta { get; set; }
+        public int tiempoRespuesta { get; set; }
         public bool estado { get; set; }
     
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<documento> documento { get; set; }
     }
+
 }
