@@ -10,20 +10,46 @@
             ID
         </th>
         <th>
-            Sede
+            Nombre
         </th>
         <th>
-            Ciudad
-        </th>
-        <th>
-            Funciones
+            Documento
         </th>
         <th>
             Estado
         </th>
+        <th>
+            Funciones
+        </th>
     </tr>
-    
-    
+
+    @foreach (var item in Model)
+    {
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.IdPersona)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.primerNombre)
+                @Html.DisplayFor(modelItem => item.segundoNombre)
+                @Html.DisplayFor(modelItem => item.primerApellido)
+                @Html.DisplayFor(modelItem => item.segundoApellido)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.documento)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.estado)
+            </td>
+            <td>
+                @Html.ActionLink("Eliminar", "Delete", new { id = item.IdPersona })
+                @Html.ActionLink(" ", "Edit", new { id = item.IdPersona }, new { @class = "glyphicon glyphicon-edit", style = "color: black" })
+                @Html.ActionLink(" ", "Status", new { id = item.IdPersona }, new { @class = "glyphicon glyphicon-lock" })
+            </td>
+        </tr>
+    }
+
+
 
 </table>
 

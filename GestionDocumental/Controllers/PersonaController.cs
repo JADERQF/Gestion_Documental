@@ -81,5 +81,91 @@ namespace GestionDocumental.Controllers
             ViewBag.Message = mensaje;
             return View();
         }
+
+        public ActionResult Create()
+        {
+            try
+            {
+                List<ListViewArea> list;
+                list = (from x in __ConnectBD.area
+                        select new ListViewArea
+                        {
+                            Id_sede = x.IdArea,
+                            Nombre_Area = x.nombreArea
+                        }).ToList();
+
+                List<SelectListItem> items = list.ConvertAll(t =>
+                {
+                    return new SelectListItem()
+                    {
+                        Text = t.Nombre_Area.ToString(),
+                        Value = t.Id_sede.ToString(),
+                        Selected = false
+                    };
+                });
+
+                ViewBag.items = items;
+                return View();
+            }
+            catch (Exception ex)
+            {
+                throw (ex);
+            }
+        }
+
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public ActionResult Create(ListViewPersona collection)
+        {
+            try
+            {
+                if(ModelState.IsValid)
+                {
+                    var table = new persona();
+                    table.primerNombre = collection.primerNombre;
+                    table.segundoNombre = collection.segundoNombre;
+                    table.primerApellido = collection.primerApellido;
+                    table.segundoApellido = collection.segundoApellido;
+                    table.documento = collection.documento;
+                    table.telefono = collection.telefono;
+                    table.usuario = collection.usuario;
+                    table.clave = collection.clave;
+                    table.estado = collection.estado;
+                    table.Id_Area = collection.Id_Area;
+                    table.Id_Rol = collection.Id_Rol;
+                    table.Id_Sede = collection.Id_Sede;
+                    __ConnectBD.persona.Add(table);
+                    __ConnectBD.SaveChanges();
+                    return RedirectToAction("Index");
+                }
+
+                List<ListViewArea> list;
+                list = (from x in __ConnectBD.area
+                        select new ListViewArea
+                        {
+                            Id_sede = x.IdArea,
+                            Nombre_Area = x.nombreArea
+                        }).ToList();
+
+                List<SelectListItem> items = list.ConvertAll(t =>
+                {
+                    return new SelectListItem()
+                    {
+                        Text = t.Nombre_Area.ToString(),
+                        Value = t.Id_sede.ToString(),
+                        Selected = false
+                    };
+                });
+
+                ViewBag.items = items;
+                return View();
+            }
+            catch (Exception ex)
+            {
+                ModelState.AddModelError("", "Error" + ex);
+                return View();
+                throw;
+            }
+        }
     }
 }

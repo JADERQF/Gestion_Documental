@@ -61,7 +61,7 @@ namespace GestionDocumental.Controllers
             }
             catch (Exception ex)
             {
-                return View ("Error");  
+                return View ("Error" + ex);  
             }
         }
         // GET: Sede/Create
