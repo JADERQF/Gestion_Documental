@@ -86,15 +86,33 @@ namespace GestionDocumental.Controllers
         {
             try
             {
-                List<ListViewArea> list;
-                list = (from x in __ConnectBD.area
+                List<ListViewArea> listArea;
+                List<ListViewRol> listRol;
+                List<ListViewSede> listSede;
+                //Consulta Areas
+                listArea = (from x in __ConnectBD.area
                         select new ListViewArea
                         {
                             Id_sede = x.IdArea,
                             Nombre_Area = x.nombreArea
                         }).ToList();
+                //Consultar roles
+                listRol = (from x in __ConnectBD.rol
+                           select new ListViewRol
+                           {
+                               IdRol = x.IdRol,
+                               nombreRol = x.nombreRol
+                           }).ToList();
 
-                List<SelectListItem> items = list.ConvertAll(t =>
+                //Consultar Sede
+                listSede = (from x in __ConnectBD.sede
+                                select new ListViewSede
+                                {
+                                    SedeId = x.IdSede,
+                                    SedeName = x.nombreSede
+                                }).ToList();
+
+                List<SelectListItem> itemsArea = listArea.ConvertAll(t =>
                 {
                     return new SelectListItem()
                     {
@@ -104,7 +122,29 @@ namespace GestionDocumental.Controllers
                     };
                 });
 
-                ViewBag.items = items;
+                List<SelectListItem> itemsSede = listSede.ConvertAll(t =>
+                {
+                    return new SelectListItem()
+                    {
+                        Text = t.SedeName.ToString(),
+                        Value = t.SedeId.ToString(),
+                        Selected = false
+                    };
+                });
+
+                List<SelectListItem> itemsRol = listRol.ConvertAll(t =>
+                {
+                    return new SelectListItem()
+                    {
+                        Text = t.nombreRol.ToString(),
+                        Value = t.IdRol.ToString(),
+                        Selected = false
+                    };
+                });
+
+                ViewBag.itemsSede = itemsSede;
+                ViewBag.itemsRol = itemsRol;
+                ViewBag.itemsArea = itemsArea;
                 return View();
             }
             catch (Exception ex)

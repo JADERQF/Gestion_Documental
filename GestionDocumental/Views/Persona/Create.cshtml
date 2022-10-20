@@ -1,7 +1,9 @@
 ﻿@model GestionDocumental.Models.ListViewPersona
 @{
     ViewBag.Title = "Create";
-    IEnumerable<SelectListItem> items = (IEnumerable<SelectListItem>)ViewBag.items;
+    IEnumerable<SelectListItem> itemsArea = (IEnumerable<SelectListItem>)ViewBag.itemsArea;
+    IEnumerable<SelectListItem> itemsRol = (IEnumerable<SelectListItem>)ViewBag.itemsRol;
+    IEnumerable<SelectListItem> itemsSede = (IEnumerable<SelectListItem>)ViewBag.itemsSede;
 }
 
 @using (Html.BeginForm("Create", "Persona", FormMethod.Post))
@@ -82,7 +84,7 @@
         <div class="form-group">
             @Html.LabelFor(model => model.Id_Area, "Area", htmlAttributes: new { @class = "control-label col-md-2" })
             <div class="col-md-10">
-                @Html.DropDownList("Id_Area", items, "Seleccione...", new { @class = "form-control" })
+                @Html.DropDownList("Id_Area", itemsArea, "Seleccione...", new { @class = "form-control" })
                 @Html.ValidationMessageFor(model => model.Id_Area, "", new { @class = "text-danger" })
             </div>
         </div>
@@ -90,7 +92,7 @@
         <div class="form-group">
             @Html.LabelFor(model => model.Id_Rol, "Rol", htmlAttributes: new { @class = "control-label col-md-2" })
             <div class="col-md-10">
-                @Html.EditorFor(model => model.Id_Rol, new { htmlAttributes = new { @class = "form-control" } })
+                @Html.DropDownList("Id_Rol", itemsRol, "Seleccione...", new { @class = "form-control" })
                 @Html.ValidationMessageFor(model => model.Id_Rol, "", new { @class = "text-danger" })
             </div>
         </div>
@@ -98,7 +100,7 @@
         <div class="form-group">
             @Html.LabelFor(model => model.Id_Sede, "Sede", htmlAttributes: new { @class = "control-label col-md-2" })
             <div class="col-md-10">
-                @Html.EditorFor(model => model.Id_Sede, new { htmlAttributes = new { @class = "form-control" } })
+                @Html.DropDownList("Id_Sede", itemsSede, "Seleccione...", new { @class = "form-control" })
                 @Html.ValidationMessageFor(model => model.Id_Sede, "", new { @class = "text-danger" })
             </div>
         </div>

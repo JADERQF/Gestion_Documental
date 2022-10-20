@@ -160,6 +160,7 @@
     <Compile Include="Models\ListViewArea.cs" />
     <Compile Include="Models\ListViewDocumento.cs" />
     <Compile Include="Models\ListViewPersona.cs" />
+    <Compile Include="Models\ListViewRol.cs" />
     <Compile Include="Models\ListViewTipo.cs" />
     <Compile Include="Models\ListViewSede.cs" />
     <Compile Include="Models\ListViewMunicipio.cs" />
