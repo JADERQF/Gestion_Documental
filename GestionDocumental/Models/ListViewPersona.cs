@@ -5,7 +5,7 @@ using System.Web;
 
 namespace GestionDocumental.Models
 {
-    public class ListViewPersona
+    public class ListViewPersona 
     {
         public int IdPersona { get; set; }
 

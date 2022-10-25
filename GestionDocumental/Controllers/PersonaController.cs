@@ -61,7 +61,7 @@ namespace GestionDocumental.Controllers
                 if (user != null)
                 {
                     ViewBag.Message = "Entro care' verga";
-                    return RedirectToAction("Index","Home");
+                    return RedirectToAction("Index", "Home");
                 }
                 else
                 {
@@ -91,11 +91,11 @@ namespace GestionDocumental.Controllers
                 List<ListViewSede> listSede;
                 //Consulta Areas
                 listArea = (from x in __ConnectBD.area
-                        select new ListViewArea
-                        {
-                            Id_sede = x.IdArea,
-                            Nombre_Area = x.nombreArea
-                        }).ToList();
+                            select new ListViewArea
+                            {
+                                Id_sede = x.IdArea,
+                                Nombre_Area = x.nombreArea
+                            }).ToList();
                 //Consultar roles
                 listRol = (from x in __ConnectBD.rol
                            select new ListViewRol
@@ -106,11 +106,11 @@ namespace GestionDocumental.Controllers
 
                 //Consultar Sede
                 listSede = (from x in __ConnectBD.sede
-                                select new ListViewSede
-                                {
-                                    SedeId = x.IdSede,
-                                    SedeName = x.nombreSede
-                                }).ToList();
+                            select new ListViewSede
+                            {
+                                SedeId = x.IdSede,
+                                SedeName = x.nombreSede
+                            }).ToList();
 
                 List<SelectListItem> itemsArea = listArea.ConvertAll(t =>
                 {
@@ -159,7 +159,7 @@ namespace GestionDocumental.Controllers
         {
             try
             {
-                if(ModelState.IsValid)
+                if (ModelState.IsValid)
                 {
                     var table = new persona();
                     table.primerNombre = collection.primerNombre;
