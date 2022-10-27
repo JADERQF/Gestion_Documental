@@ -60,12 +60,12 @@ namespace GestionDocumental.Controllers
                 var user = db.persona.FirstOrDefault(e => e.usuario == usuario && e.clave == pass);
                 if (user != null)
                 {
-                    ViewBag.Message = "Entro care' verga";
+                    ViewBag.Message = "Bienvenido...";
                     return RedirectToAction("Index", "Home");
                 }
                 else
                 {
-                    //ViewBag.Message = "NO Entro care' verga";
+                    //ViewBag.Message = "NO Entro";
                     return Login("Credenciales incorrectas");
                 }
 
@@ -179,15 +179,33 @@ namespace GestionDocumental.Controllers
                     return RedirectToAction("Index");
                 }
 
-                List<ListViewArea> list;
-                list = (from x in __ConnectBD.area
-                        select new ListViewArea
-                        {
-                            Id_sede = x.IdArea,
-                            Nombre_Area = x.nombreArea
-                        }).ToList();
+                List<ListViewArea> listArea;
+                List<ListViewRol> listRol;
+                List<ListViewSede> listSede;
+                //Consulta Areas
+                listArea = (from x in __ConnectBD.area
+                            select new ListViewArea
+                            {
+                                Id_sede = x.IdArea,
+                                Nombre_Area = x.nombreArea
+                            }).ToList();
+                //Consultar roles
+                listRol = (from x in __ConnectBD.rol
+                           select new ListViewRol
+                           {
+                               IdRol = x.IdRol,
+                               nombreRol = x.nombreRol
+                           }).ToList();
 
-                List<SelectListItem> items = list.ConvertAll(t =>
+                //Consultar Sede
+                listSede = (from x in __ConnectBD.sede
+                            select new ListViewSede
+                            {
+                                SedeId = x.IdSede,
+                                SedeName = x.nombreSede
+                            }).ToList();
+
+                List<SelectListItem> itemsArea = listArea.ConvertAll(t =>
                 {
                     return new SelectListItem()
                     {
@@ -197,11 +215,52 @@ namespace GestionDocumental.Controllers
                     };
                 });
 
-                ViewBag.items = items;
+                List<SelectListItem> itemsSede = listSede.ConvertAll(t =>
+                {
+                    return new SelectListItem()
+                    {
+                        Text = t.SedeName.ToString(),
+                        Value = t.SedeId.ToString(),
+                        Selected = false
+                    };
+                });
+
+                List<SelectListItem> itemsRol = listRol.ConvertAll(t =>
+                {
+                    return new SelectListItem()
+                    {
+                        Text = t.nombreRol.ToString(),
+                        Value = t.IdRol.ToString(),
+                        Selected = false
+                    };
+                });
+
+                ViewBag.itemsSede = itemsSede;
+                ViewBag.itemsRol = itemsRol;
+                ViewBag.itemsArea = itemsArea;
                 return View();
             }
             catch (Exception ex)
             {
+                ModelState.AddModelError("", "Error" + ex);
+                return View();
+                throw;
+            }
+        }
+
+        [HttpGet]
+        public ActionResult Delete(int Id)
+        {
+            try
+            {
+                var table = __ConnectBD.persona.Find(Id);
+                __ConnectBD.persona.Remove(table);
+                __ConnectBD.SaveChanges();
+                return RedirectToAction("Index");
+            }
+            catch (Exception ex)
+            {
+                //throw (ex);
                 ModelState.AddModelError("", "Error" + ex);
                 return View();
                 throw;

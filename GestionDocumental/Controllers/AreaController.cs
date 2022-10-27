@@ -40,16 +40,20 @@ namespace GestionDocumental.Controllers
         {
             try
             {
-                using (proyecto_radicadoEntities1 db = new proyecto_radicadoEntities1())
+                if (ModelState.IsValid)
                 {
-                    var table = new area();
-                    table.nombreArea = collection.Nombre_Area;
-                    table.estado = true;
-                    //table.estado = true;
-                    db.area.Add(table);
-                    db.SaveChanges();
-                    return RedirectToAction("Index");
-                }                
+                    using (proyecto_radicadoEntities1 db = new proyecto_radicadoEntities1())
+                    {
+                        var table = new area();
+                        table.nombreArea = collection.Nombre_Area;
+                        table.estado = true;
+                        //table.estado = true;
+                        db.area.Add(table);
+                        db.SaveChanges();
+                        return RedirectToAction("Index");
+                    }
+                }
+                return View();
             }
             catch (Exception ex)
             {
