@@ -12,7 +12,8 @@ namespace GestionDocumental.Models
         public int Id_sede { get; set; }
 
         [Required]
-       public string Nombre_Area { get; set; }
+        [Display(Name = "Nombre del Area")]
+        public string Nombre_Area { get; set; }
 
         public Boolean estado { get; set; }
         
