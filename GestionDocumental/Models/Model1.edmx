@@ -21,8 +21,7 @@
           <Property Name="fechaRadicado" Type="date" Nullable="false" />
           <Property Name="fechaDocumento" Type="date" Nullable="false" />
           <Property Name="fechaVence" Type="date" Nullable="false" />
-          <Property Name="ubicacion" Type="varchar" MaxLength="60" Nullable="false" />
-          <Property Name="nombreArchivo" Type="varchar" MaxLength="45" Nullable="false" />
+          <Property Name="ubicacion" Type="varchar" MaxLength="100" Nullable="false" />
           <Property Name="Id_Persona" Type="int" Nullable="false" />
           <Property Name="Id_TipoDocumento" Type="int" Nullable="false" />
           <Property Name="Id_Estado" Type="int" Nullable="false" />
@@ -47,9 +46,9 @@
           </Key>
           <Property Name="IdPersona" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
           <Property Name="primerNombre" Type="varchar" MaxLength="60" Nullable="false" />
-          <Property Name="segundoNombre" Type="varchar" MaxLength="60" Nullable="false" />
+          <Property Name="segundoNombre" Type="varchar" MaxLength="60" />
           <Property Name="primerApellido" Type="varchar" MaxLength="60" Nullable="false" />
-          <Property Name="segundoApellido" Type="varchar" MaxLength="60" Nullable="false" />
+          <Property Name="segundoApellido" Type="varchar" MaxLength="60" />
           <Property Name="documento" Type="varchar" MaxLength="10" Nullable="false" />
           <Property Name="telefono" Type="varchar" MaxLength="10" Nullable="false" />
           <Property Name="usuario" Type="varchar" MaxLength="20" Nullable="false" />
@@ -73,7 +72,7 @@
           <Property Name="IdSede" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
           <Property Name="nombreSede" Type="varchar" MaxLength="15" Nullable="false" />
           <Property Name="Id_Municipio" Type="int" Nullable="false" />
-          <Property Name="estado" Type="bit" Nullable="false" />
+          <Property Name="estado" Type="bit" />
         </EntityType>
         <EntityType Name="sysdiagrams">
           <Key>
@@ -270,8 +269,7 @@
           <Property Name="fechaRadicado" Type="DateTime" Nullable="false" Precision="0" />
           <Property Name="fechaDocumento" Type="DateTime" Nullable="false" Precision="0" />
           <Property Name="fechaVence" Type="DateTime" Nullable="false" Precision="0" />
-          <Property Name="ubicacion" Type="String" MaxLength="60" FixedLength="false" Unicode="false" Nullable="false" />
-          <Property Name="nombreArchivo" Type="String" MaxLength="45" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="ubicacion" Type="String" MaxLength="100" FixedLength="false" Unicode="false" Nullable="false" />
           <Property Name="Id_Persona" Type="Int32" Nullable="false" />
           <Property Name="Id_TipoDocumento" Type="Int32" Nullable="false" />
           <Property Name="Id_Estado" Type="Int32" Nullable="false" />
@@ -301,9 +299,9 @@
           </Key>
           <Property Name="IdPersona" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
           <Property Name="primerNombre" Type="String" MaxLength="60" FixedLength="false" Unicode="false" Nullable="false" />
-          <Property Name="segundoNombre" Type="String" MaxLength="60" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="segundoNombre" Type="String" MaxLength="60" FixedLength="false" Unicode="false" />
           <Property Name="primerApellido" Type="String" MaxLength="60" FixedLength="false" Unicode="false" Nullable="false" />
-          <Property Name="segundoApellido" Type="String" MaxLength="60" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="segundoApellido" Type="String" MaxLength="60" FixedLength="false" Unicode="false" />
           <Property Name="documento" Type="String" MaxLength="10" FixedLength="false" Unicode="false" Nullable="false" />
           <Property Name="telefono" Type="String" MaxLength="10" FixedLength="false" Unicode="false" Nullable="false" />
           <Property Name="usuario" Type="String" MaxLength="20" FixedLength="false" Unicode="false" Nullable="false" />
@@ -332,7 +330,7 @@
           <Property Name="IdSede" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
           <Property Name="nombreSede" Type="String" MaxLength="15" FixedLength="false" Unicode="false" Nullable="false" />
           <Property Name="Id_Municipio" Type="Int32" Nullable="false" />
-          <Property Name="estado" Type="Boolean" Nullable="false" />
+          <Property Name="estado" Type="Boolean" />
           <NavigationProperty Name="municipio" Relationship="Self.FK_municipioSede" FromRole="sede" ToRole="municipio" />
           <NavigationProperty Name="persona" Relationship="Self.FK_sedePersona" FromRole="sede" ToRole="persona" />
         </EntityType>
@@ -543,7 +541,6 @@
                 <ScalarProperty Name="fechaDocumento" ColumnName="fechaDocumento" />
                 <ScalarProperty Name="fechaVence" ColumnName="fechaVence" />
                 <ScalarProperty Name="ubicacion" ColumnName="ubicacion" />
-                <ScalarProperty Name="nombreArchivo" ColumnName="nombreArchivo" />
                 <ScalarProperty Name="Id_Persona" ColumnName="Id_Persona" />
                 <ScalarProperty Name="Id_TipoDocumento" ColumnName="Id_TipoDocumento" />
                 <ScalarProperty Name="Id_Estado" ColumnName="Id_Estado" />

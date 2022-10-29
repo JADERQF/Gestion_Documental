@@ -19,7 +19,6 @@ namespace GestionDocumental.Models
         public System.DateTime fechaDocumento { get; set; }
         public System.DateTime fechaVence { get; set; }
         public string ubicacion { get; set; }
-        public string nombreArchivo { get; set; }
         public int Id_Persona { get; set; }
         public int Id_TipoDocumento { get; set; }
         public int Id_Estado { get; set; }

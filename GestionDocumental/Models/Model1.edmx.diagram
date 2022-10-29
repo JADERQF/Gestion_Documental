@@ -4,9 +4,9 @@
   <edmx:Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
     <!-- Diagram content (shape and connector positions) -->
     <edmx:Diagrams>
-      <Diagram DiagramId="766444d1e23b479eba53b60acc49d5ee" Name="Diagram1">
+      <Diagram DiagramId="33c1677cfd2a4a7daca7da99e6d528c7" Name="Diagram1">
         <EntityTypeShape EntityType="proyecto_radicadoModel.area" Width="1.5" PointX="3" PointY="0.75" IsExpanded="true" />
-        <EntityTypeShape EntityType="proyecto_radicadoModel.documento" Width="1.5" PointX="7.5" PointY="3.125" IsExpanded="true" />
+        <EntityTypeShape EntityType="proyecto_radicadoModel.documento" Width="1.5" PointX="7.5" PointY="3.25" IsExpanded="true" />
         <EntityTypeShape EntityType="proyecto_radicadoModel.estado" Width="1.5" PointX="5.25" PointY="8.625" IsExpanded="true" />
         <EntityTypeShape EntityType="proyecto_radicadoModel.municipio" Width="1.5" PointX="0.75" PointY="4" IsExpanded="true" />
         <EntityTypeShape EntityType="proyecto_radicadoModel.persona" Width="1.5" PointX="5.25" PointY="2.625" IsExpanded="true" />

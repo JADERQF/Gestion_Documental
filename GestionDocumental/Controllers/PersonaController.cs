@@ -267,5 +267,131 @@ namespace GestionDocumental.Controllers
                 throw;
             }
         }
+
+        public ActionResult Edit(int id)
+        {
+            try
+            {
+                List<ListViewSede> listSede = null;
+                List<ListViewArea> listArea;
+                List<ListViewRol> listRol;
+                ListViewPersona model = new ListViewPersona();
+                
+                    var table = __ConnectBD.persona.Find(id); //encuentra el id del registro
+                    model.IdPersona = table.IdPersona;
+                    model.primerNombre = table.primerNombre;
+                    model.segundoNombre = table.segundoNombre;
+                    model.primerApellido = table.primerApellido;
+                    model.segundoApellido = table.segundoApellido;
+                    model.documento = table.documento;
+                    model.telefono = table.telefono;
+                    model.usuario = table.usuario;
+                    model.clave = table.clave;
+                    model.estado = table.estado;
+                    model.Id_Area = table.Id_Area;
+                    model.Id_Rol = table.Id_Rol;
+                    model.Id_Sede = table.Id_Sede;
+
+                //Consulta Areas
+                listArea = (from x in __ConnectBD.area
+                            select new ListViewArea
+                            {
+                                Id_sede = x.IdArea,
+                                Nombre_Area = x.nombreArea
+                            }).ToList();
+                //Consultar roles
+                listRol = (from x in __ConnectBD.rol
+                           select new ListViewRol
+                           {
+                               IdRol = x.IdRol,
+                               nombreRol = x.nombreRol
+                           }).ToList();
+
+                //Consultar Sede
+                listSede = (from x in __ConnectBD.sede
+                            select new ListViewSede
+                            {
+                                SedeId = x.IdSede,
+                                SedeName = x.nombreSede
+                            }).ToList();
+
+                List<SelectListItem> itemsArea = listArea.ConvertAll(t =>
+                {
+                    return new SelectListItem()
+                    {
+                        Text = t.Nombre_Area.ToString(),
+                        Value = t.Id_sede.ToString(),
+                        Selected = t.Id_sede == model.Id_Sede
+                    };
+                });
+
+                List<SelectListItem> itemsSede = listSede.ConvertAll(t =>
+                {
+                    return new SelectListItem()
+                    {
+                        Text = t.SedeName.ToString(),
+                        Value = t.SedeId.ToString(),
+                        Selected = t.SedeId ==model.Id_Sede
+                    };
+                });
+
+                List<SelectListItem> itemsRol = listRol.ConvertAll(t =>
+                {
+                    return new SelectListItem()
+                    {
+                        Text = t.nombreRol.ToString(),
+                        Value = t.IdRol.ToString(),
+                        Selected = t.IdRol == model.Id_Rol
+                    };
+                });
+
+                ViewBag.itemsSede = itemsSede;
+                ViewBag.itemsRol = itemsRol;
+                ViewBag.itemsArea = itemsArea;
+                ViewBag.message = "Editar Persona";
+                return View(model); //Retorna los datos del registro seleccionado
+            }
+            catch (Exception ex)
+            {
+                throw (ex);
+            }
+
+
+        }
+        // POST: Sede/Edit/5
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public ActionResult Update(ListViewPersona collection)
+        {
+            try
+            {
+                    //Console.WriteLine(string.Join(", ", collection));
+                    var table = __ConnectBD.persona.Find(collection.IdPersona); //Encuentra el registro a editar
+                    table.primerNombre = collection.primerNombre; //Asigna valores al registro a editar
+                    table.segundoNombre = collection.segundoNombre;
+                    table.primerApellido = collection.primerApellido;
+                    table.segundoApellido = collection.segundoApellido;
+                    table.documento = collection.documento;
+                    table.telefono = collection.telefono;
+                    table.usuario = collection.usuario;
+                    table.clave = collection.clave;
+                    table.estado = collection.estado;
+                    table.Id_Area = collection.Id_Area;
+                    table.Id_Rol = collection.Id_Rol;
+                    table.Id_Sede = collection.Id_Sede;
+                    __ConnectBD.Entry(table).State = System.Data.Entity.EntityState.Modified; //guarda cambios
+                    __ConnectBD.SaveChanges();//confirma cambios
+
+                
+                return Redirect("Index");
+            }
+            catch (Exception ex)
+            {
+                //throw (ex);
+                ModelState.AddModelError("", "Error" + ex);
+                return View();
+                throw;
+            }
+        }
     }
 }

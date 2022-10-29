@@ -16,7 +16,7 @@ namespace GestionDocumental.Models
         public string nombreDocumento { get; set; }
 
         [Required]
-        public int tiempoRes { get; set; }
+        public int? tiempoRes { get; set; }
 
         [Required]
         public Boolean Estado { get; set; }

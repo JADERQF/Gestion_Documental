@@ -19,7 +19,7 @@ namespace GestionDocumental.Models
         public int MunicipioId { get; set; }
 
         [Required]
-        public Boolean Estado { get; set; }
+        public Boolean? Estado { get; set; }
 
     }
 }

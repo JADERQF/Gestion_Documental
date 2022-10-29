@@ -9,20 +9,20 @@ namespace GestionDocumental.Controllers
 {
     public class DocumentoController : Controller
     {
+        proyecto_radicadoEntities1 __ConnectBD;
         // GET: Documento
-        public ActionResult Index()
+
+        public DocumentoController()
         {
-            using (var db = new proyecto_radicadoEntities1())
-            {
-                return View(db.documento.ToList());
-            }
+            __ConnectBD = new proyecto_radicadoEntities1();
+        }
+        public ActionResult Index()
+        {            
+                return View(__ConnectBD.documento.ToList());   
         }
         public ActionResult Create()
         {
-            using (var db = new proyecto_radicadoEntities1())
-            {
-                return View();
-            }
+                return View();          
         }
 
         [HttpPost]
