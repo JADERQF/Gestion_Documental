@@ -1,4 +1,4 @@
-﻿@model IEnumerable<GestionDocumental.Models.documento>
+﻿@model IEnumerable<GestionDocumental.Models.ListViewDocumento>
 
 <p>
     @Html.ActionLink("Crear solicitud", "Create") <!---->
@@ -6,16 +6,16 @@
 <table class="table">
     <tr>
         <th>
-            @Html.DisplayNameFor(model => model.IdDocumento)
+            Id Documento
         </th>
         <th>
-            @Html.DisplayNameFor(model => model.fechaRadicado)
+            Fecha Radicado
         </th>
         <th>
-            @Html.DisplayNameFor(model => model.fechaDocumento)
+            Fecha Documento
         </th>
         <th>
-            @Html.DisplayNameFor(model => model.fechaVence)
+            Fecha Vence
         </th>
         <th>
             @Html.DisplayNameFor(model => model.Id_Persona)

@@ -20,16 +20,16 @@ namespace GestionDocumental.Controllers
         public ActionResult Index()
         {
             List<ListViewSede> lista; //Crea un objeto de tipo ListViewSucursal
-            
-                lista = (from x in __ConnectBD.sede
-                         select new ListViewSede
-                         {
-                             SedeId = x.IdSede, //Asignamos valores a la lista
-                             SedeName = x.nombreSede,
-                             MunicipioId = x.Id_Municipio,
-                             Estado = x.estado
-                         }
-                         ).ToList();
+
+            lista = (from x in __ConnectBD.sede
+                     select new ListViewSede
+                     {
+                         SedeId = x.IdSede, //Asignamos valores a la lista
+                         SedeName = x.nombreSede,
+                         MunicipioId = x.Id_Municipio,
+                         Estado = x.estado
+                     }
+                     ).ToList();
             return View(lista);
         }
         public static string NombreMunicipio(int Id)
@@ -39,24 +39,30 @@ namespace GestionDocumental.Controllers
                 return db.municipio.Find(Id).nombreMunicipio; //Retorna el nombre de la ciudad
             }
         }
+
+        [HttpGet]
+        public ActionResult prueba(int Id)
+        {
+            return View("Index");
+        }
+
         [HttpGet]
         public ActionResult Status(int Id)
         {
             try
-            {    using (proyecto_radicadoEntities1 db = new proyecto_radicadoEntities1())
-                {
-                    var lista = db.sede.Find(Id).estado; //
+            {   
+                    var lista = __ConnectBD.sede.Find(Id).estado; //
                     if (!lista == true)
                     {
                         lista = true;
                     }
                     else { lista = false; }
 
-                    var table = db.sede.Find(Id); //Encuentra el registro a editar
+                    var table = __ConnectBD.sede.Find(Id); //Encuentra el registro a editar
                     table.estado = lista;
-                    db.Entry(table).State = System.Data.Entity.EntityState.Modified; //guarda cambios
-                    db.SaveChanges();//confirma cambios
-                }
+                    __ConnectBD.Entry(table).State = System.Data.Entity.EntityState.Modified; //guarda cambios
+                    __ConnectBD.SaveChanges();//confirma cambios
+                
                 return View ("Index");
             }
             catch (Exception ex)
@@ -80,7 +86,7 @@ namespace GestionDocumental.Controllers
                              NombreMunicipio = t.nombreMunicipio
                          }).ToList();
                 }
-
+                
                 List<SelectListItem> items = lst.ConvertAll(t =>
                 {
                     return new SelectListItem()
@@ -103,6 +109,7 @@ namespace GestionDocumental.Controllers
 
         // POST: Sede/Create
         [HttpPost]
+        [ValidateAntiForgeryToken]
         public ActionResult Create(ListViewSede collection)
         {
             try
@@ -145,7 +152,7 @@ namespace GestionDocumental.Controllers
                 ViewBag.items = items;
                 return View();
             }
-            catch (Exception ex)    
+            catch (Exception ex)
             {   //throw (ex);
                 ModelState.AddModelError("", "Error" + ex);
                 return View();
@@ -160,14 +167,12 @@ namespace GestionDocumental.Controllers
             {                 
                 List<ListViewMunicipio> lst = null;
                 ListViewSede model = new ListViewSede();
-                using (proyecto_radicadoEntities1 bd = new proyecto_radicadoEntities1())
-                {   
-                    var table = bd.sede.Find(id); //encuentra el id del registro
+                    var table = __ConnectBD.sede.Find(id); //encuentra el id del registro
                     model.SedeId = table.IdSede;
                     model.SedeName = table.nombreSede;
                     model.MunicipioId = table.Id_Municipio;
                     lst =
-                            (from t in bd.municipio
+                            (from t in __ConnectBD.municipio
                              select new ListViewMunicipio
                              {
                                  Id = t.IdMunicipio,
@@ -185,7 +190,6 @@ namespace GestionDocumental.Controllers
                     });
 
                     ViewBag.items = items; //variable contiene los valores del select
-                }
                 return View(model); //Retorna los datos del registro seleccionado
             }
             catch (Exception ex)
@@ -202,16 +206,13 @@ namespace GestionDocumental.Controllers
         {
             try
             {
-                using (proyecto_radicadoEntities1 db = new proyecto_radicadoEntities1())
-                {
                     //Console.WriteLine(string.Join(", ", collection));
-                    var table = db.sede.Find(collection.SedeId); //Encuentra el registro a editar
+                    var table = __ConnectBD.sede.Find(collection.SedeId); //Encuentra el registro a editar
                     table.nombreSede = collection.SedeName; //Asigna valores al registro a editar
                     table.Id_Municipio = collection.MunicipioId;
                     table.IdSede = collection.SedeId;
-                    db.Entry(table).State = System.Data.Entity.EntityState.Modified; //guarda cambios
-                    db.SaveChanges();//confirma cambios
-                }
+                    __ConnectBD.Entry(table).State = System.Data.Entity.EntityState.Modified; //guarda cambios
+                    __ConnectBD.SaveChanges();//confirma cambios
                 return Redirect("Index");
             }
             catch (Exception ex)    
@@ -229,14 +230,9 @@ namespace GestionDocumental.Controllers
         {
             try
             {
-                using (proyecto_radicadoEntities1 db = new proyecto_radicadoEntities1())
-                {
-
-                    var table = db.sede.Find(Id);
-                    db.sede.Remove(table);
-                    db.SaveChanges();
-
-                }
+                    var table = __ConnectBD.sede.Find(Id);
+                    __ConnectBD.sede.Remove(table);
+                    __ConnectBD.SaveChanges();
                 return RedirectToAction("Index");
             }
             catch (Exception ex)

@@ -12,10 +12,11 @@ namespace GestionDocumental.Models
         public int tipoDocumentoId { get; set; }
 
         [Required]
-        [Display(Name = "Release Date")]
+        [Display(Name = "Tipo Documento")]
         public string nombreDocumento { get; set; }
 
         [Required]
+        [Display(Name = "Tiempo de Respuesta")]
         public int? tiempoRes { get; set; }
 
         [Required]

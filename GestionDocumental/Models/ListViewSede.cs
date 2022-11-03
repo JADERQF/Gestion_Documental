@@ -18,7 +18,7 @@ namespace GestionDocumental.Models
         [Display(Name = "Ciudad")]
         public int MunicipioId { get; set; }
 
-        [Required]
+       
         public Boolean? Estado { get; set; }
 
     }

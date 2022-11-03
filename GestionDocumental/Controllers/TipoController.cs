@@ -10,13 +10,18 @@ namespace GestionDocumental.Controllers
 {
     public class TipoController : Controller
     {
+        proyecto_radicadoEntities1 __ConnectBD;
         // GET: Tipo
+
+        public TipoController()
+        {
+            __ConnectBD = new proyecto_radicadoEntities1();
+        }
         public ActionResult Index()
         {
             List<ListViewTipo> lista;
-            using (proyecto_radicadoEntities1 db = new proyecto_radicadoEntities1())
-            {
-                lista = (from x in db.tipoDocumento
+            
+                lista = (from x in __ConnectBD.tipoDocumento
                          select new ListViewTipo
                          {
                              tipoDocumentoId = x.IdTipoDocumento,
@@ -25,7 +30,6 @@ namespace GestionDocumental.Controllers
                              Estado = x.estado
                          }
                          ).ToList();
-            }
             return View(lista);
         }
         public ActionResult Create()
@@ -38,16 +42,13 @@ namespace GestionDocumental.Controllers
         {
             try
             {
-                using (proyecto_radicadoEntities1 db = new proyecto_radicadoEntities1())
-                {
                     var table = new tipoDocumento();
                     table.nombreDocumento = collection.nombreDocumento;
                     table.tiempoRespuesta = collection.tiempoRes;
                     table.estado = true;
-                    db.tipoDocumento.Add(table);
-                    db.SaveChanges();
+                    __ConnectBD.tipoDocumento.Add(table);
+                    __ConnectBD.SaveChanges();
                     return RedirectToAction("Index");
-                }
             }
             catch
             {
@@ -59,14 +60,13 @@ namespace GestionDocumental.Controllers
             try
             {
                 ListViewTipo model = new ListViewTipo();
-                using (proyecto_radicadoEntities1 bd = new proyecto_radicadoEntities1())
-                {
-                    var table = bd.tipoDocumento.Find(id);
+                
+                    var table = __ConnectBD.tipoDocumento.Find(id);
                     model.tipoDocumentoId = table.IdTipoDocumento;
                     model.nombreDocumento = table.nombreDocumento;
                     model.tiempoRes = table.tiempoRespuesta;
                     model.Estado = table.estado;
-                }
+                
                 return View(model);
             }
             catch (Exception ex)
@@ -82,15 +82,13 @@ namespace GestionDocumental.Controllers
         {
             try
             {
-                using (proyecto_radicadoEntities1 db = new proyecto_radicadoEntities1())
-                {
-                    var table = db.tipoDocumento.Find(collection.tipoDocumentoId);
+
+                    var table = __ConnectBD.tipoDocumento.Find(collection.tipoDocumentoId);
                     table.nombreDocumento = collection.nombreDocumento;
                     table.tiempoRespuesta = collection.tiempoRes;
                     table.estado = collection.Estado;
-                    db.Entry(table).State = System.Data.Entity.EntityState.Modified;
-                    db.SaveChanges();
-                }
+                    __ConnectBD.Entry(table).State = System.Data.Entity.EntityState.Modified;
+                    __ConnectBD.SaveChanges();
 
                 return Redirect("Index");
             }
@@ -106,12 +104,9 @@ namespace GestionDocumental.Controllers
         {
             try
             {
-                using (proyecto_radicadoEntities1 db = new proyecto_radicadoEntities1())
-                {
-                    var table = db.tipoDocumento.Find(Id);
-                    db.tipoDocumento.Remove(table);
-                    db.SaveChanges();
-                }
+                    var table = __ConnectBD.tipoDocumento.Find(Id);
+                    __ConnectBD.tipoDocumento.Remove(table);
+                    __ConnectBD.SaveChanges();
                 return RedirectToAction("Index");
             }
             catch (Exception ex)
