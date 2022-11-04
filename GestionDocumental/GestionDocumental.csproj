@@ -159,6 +159,7 @@
     </Compile>
     <Compile Include="Models\ListViewArea.cs" />
     <Compile Include="Models\ListViewDocumento.cs" />
+    <Compile Include="Models\ListViewEstado.cs" />
     <Compile Include="Models\ListViewPersona.cs" />
     <Compile Include="Models\ListViewRol.cs" />
     <Compile Include="Models\ListViewTipo.cs" />
@@ -279,6 +280,7 @@
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
+    <Folder Include="Files\" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="fonts\glyphicons-halflings-regular.woff2" />

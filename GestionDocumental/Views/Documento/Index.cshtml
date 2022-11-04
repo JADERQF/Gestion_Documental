@@ -1,7 +1,7 @@
-﻿@model IEnumerable<GestionDocumental.Models.ListViewDocumento>
+﻿@model List<GestionDocumental.Models.ListViewDocumento>
 
 <p>
-    @Html.ActionLink("Crear solicitud", "Create") <!---->
+    @Html.ActionLink("Crear Documento", "Create") <!---->
 </p>
 <table class="table">
     <tr>
@@ -18,15 +18,17 @@
             Fecha Vence
         </th>
         <th>
-            @Html.DisplayNameFor(model => model.Id_Persona)
+            Persona
         </th>
         <th>
-            @Html.DisplayNameFor(model => model.Id_TipoDocumento)
+            Tipo Documento
         </th>
         <th>
-            @Html.DisplayNameFor(model => model.Id_Estado)
+            Estado
         </th>
-        <th></th>
+        <th>
+            Funciones
+        </th>
     </tr>
 
     @foreach (var item in Model)
@@ -54,9 +56,9 @@
                 @Html.DisplayFor(modelItem => item.Id_Estado)
             </td>
             <td>
-                @Html.ActionLink("Edit", "Edit", new { /* id=item.PrimaryKey */ }) |
-                @Html.ActionLink("Details", "Details", new { /* id=item.PrimaryKey */ }) |
-                @Html.ActionLink("Delete", "Delete", new { /* id=item.PrimaryKey */ })
+                @Html.ActionLink("Edit", "Edit", new { id=item.IdDocumento }) |
+                @Html.ActionLink("Details", "Details", new { id=item.IdDocumento }) |
+                @Html.ActionLink("Delete", "Delete", new { id=item.IdDocumento })
             </td>
         </tr>
     }

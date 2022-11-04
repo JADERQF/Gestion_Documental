@@ -1,6 +1,7 @@
 ﻿using GestionDocumental.Models;
 using System;
 using System.Collections.Generic;
+using System.IO;
 using System.Linq;
 using System.Web;
 using System.Web.Mvc;
@@ -17,28 +18,112 @@ namespace GestionDocumental.Controllers
             __ConnectBD = new proyecto_radicadoEntities1();
         }
         public ActionResult Index()
-        {            
-                return View(__ConnectBD.documento.ToList());   
+        {
+            List<ListViewDocumento> lista; //Crea un objeto de tipo ListViewDocumento
+
+            lista = (from x in __ConnectBD.documento
+                     select new ListViewDocumento
+                     {
+                         IdDocumento = x.IdDocumento,
+                         fechaRadicado = x.fechaRadicado,
+                         fechaDocumento = x.fechaDocumento,
+                         fechaVence = x.fechaVence,
+                         ubicacion = x.ubicacion,
+                         Id_Persona = x.Id_Persona,
+                         Id_TipoDocumento = x.Id_TipoDocumento,
+                         Id_Estado = x.Id_Estado
+                     }).ToList();
+            return View(lista);   
         }
         public ActionResult Create()
         {
-                return View();          
+            try
+            {
+                List<ListViewPersona> listPersona;
+                List<ListViewTipo> listTipo;
+                List<ListViewEstado> listEstado;
+
+                listPersona = (from x in __ConnectBD.persona
+                               select new ListViewPersona
+                               {
+                                   IdPersona = x.IdPersona,
+                                   primerNombre = x.primerNombre,
+                                   segundoNombre = x.segundoNombre,
+                                   primerApellido = x.primerApellido
+                               }).ToList();
+
+                listEstado = (from x in __ConnectBD.estado
+                            select new ListViewEstado
+                            {
+                                IdEstado = x.IdEstado,
+                                nombreEstado = x.nombreEstado
+                            }).ToList();
+
+                listTipo = (from x in __ConnectBD.tipoDocumento
+                            where x.estado == true
+                            select new ListViewTipo
+                            {
+                                tipoDocumentoId = x.IdTipoDocumento,
+                                nombreDocumento = x.nombreDocumento
+                            }).ToList();
+
+                List<SelectListItem> itemsPersona = listPersona.ConvertAll(t =>
+                {
+                    return new SelectListItem()
+                    {
+                        Text = t.primerNombre.ToString(),
+                        Value = t.IdPersona.ToString(),
+                        Selected = false
+                    };
+                });
+
+                List<SelectListItem> itemsTipo = listTipo.ConvertAll(t =>
+                {
+                    return new SelectListItem()
+                    {
+                        Text = t.nombreDocumento.ToString(),
+                        Value = t.tipoDocumentoId.ToString(),
+                        Selected = false
+                    };
+                });
+
+                List<SelectListItem> itemsEstado = listEstado.ConvertAll(t =>
+                {
+                    return new SelectListItem()
+                    {
+                        Text = t.nombreEstado.ToString(),
+                        Value = t.IdEstado.ToString(),
+                        Selected = false
+                    };
+                });
+
+                ViewBag.itemsPersona = itemsPersona;
+                ViewBag.itemsEstado = itemsEstado;
+                ViewBag.itemsTipo = itemsTipo;
+
+                return View();
+            }
+            catch (Exception)
+            {
+
+                throw;
+            }          
         }
 
         [HttpPost]
-        public ActionResult Create(documento documento)
+        [ValidateAntiForgeryToken]
+        public ActionResult Create(ListViewDocumento Collection)
         {
-            if (!ModelState.IsValid) //
-                return View();
-
             try
             {
-                using (var db = new proyecto_radicadoEntities1())
+                if (!ModelState.IsValid)
                 {
-                    db.documento.Add(documento);
-                    db.SaveChanges();
-                    return RedirectToAction("Index");
+                    string result = Collection.archivo.FileName;
+                    string RutaSitio = Server.MapPath("~/");
+                    string PathArchivo = Path.Combine(RutaSitio + "/Files/"+result);
+                    Collection.archivo.SaveAs(PathArchivo);
                 }
+                return RedirectToAction("Index");
             }
             catch (Exception ex)
             {
