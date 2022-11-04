@@ -40,7 +40,7 @@ namespace GestionDocumental.Controllers
             }
         }
         [HttpGet]
-        public ActionResult Status(int Id)
+        public ActionResult Estado(int Id)
         {
             try
             {    using (proyecto_radicadoEntities1 db = new proyecto_radicadoEntities1())
@@ -57,7 +57,7 @@ namespace GestionDocumental.Controllers
                     db.Entry(table).State = System.Data.Entity.EntityState.Modified; //guarda cambios
                     db.SaveChanges();//confirma cambios
                 }
-                return View ("Index");
+                return RedirectToAction("Index");
             }
             catch (Exception ex)
             {

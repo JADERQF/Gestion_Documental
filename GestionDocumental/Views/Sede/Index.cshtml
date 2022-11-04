@@ -39,7 +39,14 @@
                 <td>
                     @Html.ActionLink("Eliminar", "Delete", new { id = item.SedeId })
                     @Html.ActionLink(" ", "Edit", new { id = item.SedeId }, new { @class = "glyphicon glyphicon-edit", style = "color: black" })
-                    @Html.ActionLink(" ", "Status", new { id = item.SedeId }, new { @class = "glyphicon glyphicon-lock"})
+                    @if (item.Estado == true)
+                    {
+                        @Html.ActionLink(" ", "Estado", new { id = item.SedeId }, new { @class = "glyphicon glyphicon-ok-circle" })
+                    }
+                    else
+                    {
+                        @Html.ActionLink(" ", "Estado", new { id = item.SedeId }, new { @class = "glyphicon glyphicon-ban-circle" })
+                    }
                 </td>
                 <td>
                     @Html.DisplayFor(modelItem => item.Estado)
