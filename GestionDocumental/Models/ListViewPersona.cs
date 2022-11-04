@@ -13,15 +13,21 @@ namespace GestionDocumental.Models
         [Display(Name = "Primer nombre")]
         public string primerNombre { get; set; }
 
+        [Required]
+        [Display(Name = "Segundo nombre")]
         public string segundoNombre { get; set; }
         [Required]
         [Display(Name = "Primer apellido")]
         public string primerApellido { get; set; }
+        [Required]
+        [Display(Name = "Segundo Apellido")]
         public string segundoApellido { get; set; }
         [Required]
         [Display(Name = "Documento")]
         public string documento { get; set; }
 
+        [Required]
+        [Display(Name = "Teléfono")]
         public string telefono { get; set; }
         [Required]
         [Display(Name = "Usuario")]

@@ -92,6 +92,7 @@ namespace GestionDocumental.Controllers
                 List<ListViewSede> listSede;
                 //Consulta Areas
                 listArea = (from x in __ConnectBD.area
+                            where x.estado == true
                             select new ListViewArea
                             {
                                 Id_sede = x.IdArea,
@@ -107,6 +108,7 @@ namespace GestionDocumental.Controllers
 
                 //Consultar Sede
                 listSede = (from x in __ConnectBD.sede
+                            where x.estado ==true
                             select new ListViewSede
                             {
                                 SedeId = x.IdSede,
@@ -150,7 +152,10 @@ namespace GestionDocumental.Controllers
             }
             catch (Exception ex)
             {
-                throw (ex);
+                //throw (ex);
+                ModelState.AddModelError("", "Error" + ex);
+                return View();
+                throw;
             }
         }
 
