@@ -47,27 +47,30 @@ namespace GestionDocumental.Controllers
         }
 
         [HttpGet]
-        public ActionResult Status(int Id)
+        public ActionResult Estado(int Id)
         {
             try
-            {   
-                    var lista = __ConnectBD.sede.Find(Id).estado; //
-                    if (!lista == true)
-                    {
-                        lista = true;
-                    }
-                    else { lista = false; }
+            {
+                var lista = __ConnectBD.sede.Find(Id).estado; //
+                if (!lista == true)
+                {
+                    lista = true;
+                }
+                else
+                {
+                    lista = false;
+                }
 
-                    var table = __ConnectBD.sede.Find(Id); //Encuentra el registro a editar
-                    table.estado = lista;
-                    __ConnectBD.Entry(table).State = System.Data.Entity.EntityState.Modified; //guarda cambios
-                    __ConnectBD.SaveChanges();//confirma cambios
-                
-                return View ("Index");
+                var table = __ConnectBD.sede.Find(Id); //Encuentra el registro a editar
+                table.estado = lista;
+                __ConnectBD.Entry(table).State = System.Data.Entity.EntityState.Modified; //guarda cambios
+                __ConnectBD.SaveChanges();//confirma cambios
+
+                return RedirectToAction("Index");
             }
             catch (Exception ex)
             {
-                return View ("Error" + ex);  
+                return View("Error" + ex);
             }
         }
         // GET: Sede/Create
@@ -86,7 +89,7 @@ namespace GestionDocumental.Controllers
                              NombreMunicipio = t.nombreMunicipio
                          }).ToList();
                 }
-                
+
                 List<SelectListItem> items = lst.ConvertAll(t =>
                 {
                     return new SelectListItem()
@@ -164,32 +167,32 @@ namespace GestionDocumental.Controllers
         public ActionResult Edit(int id)
         {
             try
-            {                 
+            {
                 List<ListViewMunicipio> lst = null;
                 ListViewSede model = new ListViewSede();
-                    var table = __ConnectBD.sede.Find(id); //encuentra el id del registro
-                    model.SedeId = table.IdSede;
-                    model.SedeName = table.nombreSede;
-                    model.MunicipioId = table.Id_Municipio;
-                    lst =
-                            (from t in __ConnectBD.municipio
-                             select new ListViewMunicipio
-                             {
-                                 Id = t.IdMunicipio,
-                                 NombreMunicipio = t.nombreMunicipio
-                             }).ToList();
+                var table = __ConnectBD.sede.Find(id); //encuentra el id del registro
+                model.SedeId = table.IdSede;
+                model.SedeName = table.nombreSede;
+                model.MunicipioId = table.Id_Municipio;
+                lst =
+                        (from t in __ConnectBD.municipio
+                         select new ListViewMunicipio
+                         {
+                             Id = t.IdMunicipio,
+                             NombreMunicipio = t.nombreMunicipio
+                         }).ToList();
 
-                    List<SelectListItem> items = lst.ConvertAll(t =>
+                List<SelectListItem> items = lst.ConvertAll(t =>
+                {
+                    return new SelectListItem()
                     {
-                        return new SelectListItem()
-                        {
-                            Text = t.NombreMunicipio.ToString(), //Muestra el valor 
+                        Text = t.NombreMunicipio.ToString(), //Muestra el valor 
                             Value = t.Id.ToString(), //Valor del Id del registro
-                            Selected = t.Id==model.MunicipioId  //valor por defecto del select
+                            Selected = t.Id == model.MunicipioId  //valor por defecto del select
                         };
-                    });
+                });
 
-                    ViewBag.items = items; //variable contiene los valores del select
+                ViewBag.items = items; //variable contiene los valores del select
                 return View(model); //Retorna los datos del registro seleccionado
             }
             catch (Exception ex)
@@ -206,16 +209,16 @@ namespace GestionDocumental.Controllers
         {
             try
             {
-                    //Console.WriteLine(string.Join(", ", collection));
-                    var table = __ConnectBD.sede.Find(collection.SedeId); //Encuentra el registro a editar
-                    table.nombreSede = collection.SedeName; //Asigna valores al registro a editar
-                    table.Id_Municipio = collection.MunicipioId;
-                    table.IdSede = collection.SedeId;
-                    __ConnectBD.Entry(table).State = System.Data.Entity.EntityState.Modified; //guarda cambios
-                    __ConnectBD.SaveChanges();//confirma cambios
+                //Console.WriteLine(string.Join(", ", collection));
+                var table = __ConnectBD.sede.Find(collection.SedeId); //Encuentra el registro a editar
+                table.nombreSede = collection.SedeName; //Asigna valores al registro a editar
+                table.Id_Municipio = collection.MunicipioId;
+                table.IdSede = collection.SedeId;
+                __ConnectBD.Entry(table).State = System.Data.Entity.EntityState.Modified; //guarda cambios
+                __ConnectBD.SaveChanges();//confirma cambios
                 return Redirect("Index");
             }
-            catch (Exception ex)    
+            catch (Exception ex)
             {
                 //throw (ex);
                 ModelState.AddModelError("", "Error" + ex);
@@ -230,9 +233,9 @@ namespace GestionDocumental.Controllers
         {
             try
             {
-                    var table = __ConnectBD.sede.Find(Id);
-                    __ConnectBD.sede.Remove(table);
-                    __ConnectBD.SaveChanges();
+                var table = __ConnectBD.sede.Find(Id);
+                __ConnectBD.sede.Remove(table);
+                __ConnectBD.SaveChanges();
                 return RedirectToAction("Index");
             }
             catch (Exception ex)
