@@ -49,16 +49,16 @@ namespace GestionDocumental.Controllers
 
         [HttpPost] //recibe datos por metodo POST
 
-        public ActionResult login(FormCollection formCollection) //recibe un parámetro de tipo formulario
+        public ActionResult Login(FormCollection formCollection) //recibe un parámetro de tipo formulario
         {
             using (var db = new proyecto_radicadoEntities1()) //instanciamos un objeto de la db.
             {
                 string usuario = formCollection["usuario"]; //guardo el valor de input usuario
-                string pass = formCollection["pass"];       //guardo el valor de input pass
+                string clave = formCollection["clave"];       //guardo el valor de input pass
                 //byte[] pass = Encoding.ASCII.GetBytes(pass1);       //guardo el valor de input pass
 
 
-                var user = db.persona.FirstOrDefault(e => e.usuario == usuario && e.clave == pass);
+                var user = db.persona.FirstOrDefault(e => e.usuario == usuario && e.clave == clave);
                 if (user != null)
                 {
                     ViewBag.Message = "Bienvenido...";
