@@ -145,6 +145,8 @@
     <Compile Include="Controllers\SedeController.cs" />
     <Compile Include="Controllers\MunicipioController.cs" />
     <Compile Include="Controllers\TipoController.cs" />
+    <Compile Include="Filters\Persona.cs" />
+    <Compile Include="Filters\Session.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>

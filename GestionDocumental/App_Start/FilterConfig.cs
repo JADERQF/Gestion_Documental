@@ -1,4 +1,5 @@
-﻿using System.Web;
+﻿using GestionDocumental.Filters;
+using System.Web;
 using System.Web.Mvc;
 
 namespace GestionDocumental
@@ -8,6 +9,7 @@ namespace GestionDocumental
         public static void RegisterGlobalFilters(GlobalFilterCollection filters)
         {
             filters.Add(new HandleErrorAttribute());
+            filters.Add(new Session());
         }
     }
 }

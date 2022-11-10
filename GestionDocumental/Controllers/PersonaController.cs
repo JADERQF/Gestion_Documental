@@ -51,26 +51,35 @@ namespace GestionDocumental.Controllers
 
         public ActionResult Login(FormCollection formCollection) //recibe un parámetro de tipo formulario
         {
-            using (var db = new proyecto_radicadoEntities1()) //instanciamos un objeto de la db.
+            try
             {
-                string usuario = formCollection["usuario"]; //guardo el valor de input usuario
-                string clave = formCollection["clave"];       //guardo el valor de input pass
-                //byte[] pass = Encoding.ASCII.GetBytes(pass1);       //guardo el valor de input pass
-
-
-                var user = db.persona.FirstOrDefault(e => e.usuario == usuario && e.clave == clave);
-                if (user != null)
+                using (var db = new proyecto_radicadoEntities1()) //instanciamos un objeto de la db.
                 {
-                    ViewBag.Message = "Bienvenido...";
-                    return RedirectToAction("Index", "Home");
-                }
-                else
-                {
-                    //ViewBag.Message = "NO Entro";
-                    return Login("Credenciales incorrectas");
-                }
+                    string usuario = formCollection["usuario"]; //guardo el valor de input usuario
+                    string clave = formCollection["clave"];       //guardo el valor de input pass
+                                                                  //byte[] pass = Encoding.ASCII.GetBytes(pass1);       //guardo el valor de input pass
 
 
+                    var user = db.persona.FirstOrDefault(e => e.usuario == usuario && e.clave == clave);
+                    if (user != null)
+                    {
+                        Session["User"] = user; //Sesión de usuario
+                        //ViewBag.Message = "Bienvenido...";
+                    }
+                    else
+                    {
+                        //ViewBag.Message = "NO Entro";
+                        return Login("Credenciales incorrectas");
+                    }
+                }
+                return RedirectToAction("Index", "Home");
+            }
+            catch (Exception ex)
+            {
+                //throw (ex);
+                ModelState.AddModelError("", "Error" + ex);
+                return View();
+                throw;
             }
 
 
@@ -81,6 +90,12 @@ namespace GestionDocumental.Controllers
         {
             ViewBag.Message = mensaje;
             return View();
+        }
+
+        public ActionResult CloseSession()
+        {
+            Session["User"] = null;
+            return RedirectToAction("Login", "Persona");
         }
 
         public ActionResult Create()
