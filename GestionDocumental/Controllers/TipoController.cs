@@ -1,4 +1,5 @@
-﻿using GestionDocumental.Models;
+﻿using GestionDocumental.Filters;
+using GestionDocumental.Models;
 using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
@@ -8,6 +9,7 @@ using System.Web.Mvc;
 
 namespace GestionDocumental.Controllers
 {
+   
     public class TipoController : Controller
     {
         proyecto_radicadoEntities1 __ConnectBD;
