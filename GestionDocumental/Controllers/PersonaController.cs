@@ -370,6 +370,8 @@ namespace GestionDocumental.Controllers
         {
             try
             {
+                if (ModelState.IsValid)
+                {
                     //Console.WriteLine(string.Join(", ", collection));
                     var table = __ConnectBD.persona.Find(collection.IdPersona); //Encuentra el registro a editar
                     table.primerNombre = collection.primerNombre; //Asigna valores al registro a editar
@@ -386,9 +388,10 @@ namespace GestionDocumental.Controllers
                     table.Id_Sede = collection.Id_Sede;
                     __ConnectBD.Entry(table).State = System.Data.Entity.EntityState.Modified; //guarda cambios
                     __ConnectBD.SaveChanges();//confirma cambios
-
+                    return Redirect("Index");
+                }
+                return View("Index");
                 
-                return Redirect("Index");
             }
             catch (Exception ex)
             {
