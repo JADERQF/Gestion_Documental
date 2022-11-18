@@ -116,12 +116,28 @@ namespace GestionDocumental.Controllers
         {
             try
             {
-                if (!ModelState.IsValid)
+                if (ModelState.IsValid)
                 {
+                    //var table = documento();
                     string result = Collection.archivo.FileName;
                     string RutaSitio = Server.MapPath("~/");
+                    var table = new documento();
                     string PathArchivo = Path.Combine(RutaSitio + "/Files/"+result);
+                    table.ubicacion = PathArchivo;
+                    table.fechaRadicado = DateTime.Today;
+                    table.fechaDocumento = Collection.fechaDocumento;
+                    var table1 = __ConnectBD.tipoDocumento.Find(Collection.Id_TipoDocumento);
+                    double TiempoRes = Convert.ToDouble(table1.tiempoRespuesta);
+                    table.fechaVence = table.fechaRadicado.AddDays(TiempoRes);
+                    table.Id_Persona = Collection.Id_Persona;
+                    table.Id_TipoDocumento = Collection.Id_TipoDocumento;
+                    table.Id_Estado = Collection.Id_Estado;
+                    __ConnectBD.documento.Add(table);
+                    __ConnectBD.SaveChanges();
                     Collection.archivo.SaveAs(PathArchivo);
+                } else
+                {
+                    
                 }
                 return RedirectToAction("Index");
             }
