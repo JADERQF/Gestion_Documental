@@ -14,9 +14,7 @@ namespace GestionDocumental
         public static void RegisterGlobalFilters(GlobalFilterCollection filters)
         {
             filters.Add(new HandleErrorAttribute());
-            filters.Add(new Session());
-            filters.Add(filter: new PermisosRolAttribute());
-            
+            filters.Add(new Session());            
         }
     }
 }

@@ -1,8 +1,10 @@
-﻿using System;
+﻿using GestionDocumental.Filters;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Web;
 using System.Web.Mvc;
+using GestionDocumental.Models;
 
 namespace GestionDocumental.Controllers
 {
@@ -19,7 +21,7 @@ namespace GestionDocumental.Controllers
 
             return View();
         }
-
+        
         public ActionResult Contact()
         {
             ViewBag.Message = "Your contact page.";

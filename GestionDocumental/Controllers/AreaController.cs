@@ -1,4 +1,5 @@
-﻿using GestionDocumental.Models;
+﻿using GestionDocumental.Filters;
+using GestionDocumental.Models;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -8,6 +9,7 @@ using System.Web.UI.WebControls;
 
 namespace GestionDocumental.Controllers
 {
+   
     public class AreaController : Controller
     {
         // GET: Area

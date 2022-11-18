@@ -13,7 +13,7 @@ using System.Web.Http.Filters;
 //David cambio el codigo
 namespace GestionDocumental.Controllers
 {
-    [PermisosRolAttribute(1)]
+    [PermisosRol(Idrol: 1)]
     public class PersonaController : Controller
     {
         proyecto_radicadoEntities1 __ConnectBD;
