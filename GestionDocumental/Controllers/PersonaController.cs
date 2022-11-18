@@ -7,13 +7,11 @@ using System.Web;
 using System.Web.Mvc;
 using System.Web.Services.Description;
 using GestionDocumental.Filters;
-using System.Web.Http.Filters;
 
 
 //David cambio el codigo
 namespace GestionDocumental.Controllers
 {
-    [PermisosRol(Idrol: 1)]
     public class PersonaController : Controller
     {
         proyecto_radicadoEntities1 __ConnectBD;
@@ -22,7 +20,7 @@ namespace GestionDocumental.Controllers
         {
             __ConnectBD = new proyecto_radicadoEntities1();
         }
-        
+        [PermisosRol(1)]
         // GET: Persona
         public ActionResult Index()
         {
@@ -50,7 +48,7 @@ namespace GestionDocumental.Controllers
                 throw;
             }
         }
-
+        [PermisosRol(1)]
         public ActionResult Create()
         {
             try
@@ -76,7 +74,7 @@ namespace GestionDocumental.Controllers
 
                 //Consultar Sede
                 listSede = (from x in __ConnectBD.sede
-                            where x.estado ==true
+                            where x.estado == true
                             select new ListViewSede
                             {
                                 SedeId = x.IdSede,
@@ -126,7 +124,7 @@ namespace GestionDocumental.Controllers
                 throw;
             }
         }
-
+        [PermisosRol(1)]
         [HttpPost]
         [ValidateAntiForgeryToken]
         public ActionResult Create(ListViewPersona collection)
@@ -222,7 +220,7 @@ namespace GestionDocumental.Controllers
                 throw;
             }
         }
-
+        [PermisosRol(1)]
         [HttpGet]
         public ActionResult Delete(int Id)
         {
@@ -240,8 +238,9 @@ namespace GestionDocumental.Controllers
                 return View();
                 throw;
             }
-        }
+        } 
 
+        [PermisosRol(1)]
         public ActionResult Edit(int id)
         {
             try
@@ -332,7 +331,9 @@ namespace GestionDocumental.Controllers
 
 
         }
+
         // POST: Sede/Edit/5
+        [PermisosRol(1)]
         [HttpPost]
         [ValidateAntiForgeryToken]
         public ActionResult Update(ListViewPersona collection)

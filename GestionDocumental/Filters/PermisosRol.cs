@@ -12,15 +12,15 @@ using System.Xml.Linq;
 namespace GestionDocumental.Filters
 {
     [AttributeUsage(AttributeTargets.Method, AllowMultiple = false)]
-    public class PermisosRolAttribute : AuthorizeAttribute
+    public class PermisosRol : AuthorizeAttribute
     {
-        proyecto_radicadoEntities1 __ConnectBD;
+        //proyecto_radicadoEntities1 __ConnectBD;
         private readonly int Id_Rol;
 
-        public PermisosRolAttribute(int Idrol)
+        public PermisosRol(int Idrol)
         {
-            __ConnectBD = new proyecto_radicadoEntities1();
-            Id_Rol = Idrol;
+            // __ConnectBD = new proyecto_radicadoEntities1();
+            this.Id_Rol = Idrol;
         }
 
         private persona usuario; //objeto tipo persona

@@ -21,7 +21,7 @@ namespace GestionDocumental.Controllers
                 {
                     string usuario = formCollection["usuario"]; //guardo el valor de input usuario
                     string clave = formCollection["clave"];       //guardo el valor de input pass
-                    PermisosRolAttribute objper = new PermisosRolAttribute();                                              //byte[] pass = Encoding.ASCII.GetBytes(pass1);       //guardo el valor de input pass
+                    //PermisosRolAttribute objper = new PermisosRolAttribute(1);                                              //byte[] pass = Encoding.ASCII.GetBytes(pass1);       //guardo el valor de input pass
 
 
                     var user = db.persona.FirstOrDefault(e => e.usuario == usuario && e.clave == clave);
