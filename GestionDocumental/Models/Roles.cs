@@ -13,6 +13,13 @@ namespace GestionDocumental.Models
         Administrador = 1,
         Funcionario = 2,
         Radicador = 3
-
+    }
+    //public class ListRol
+    //{
+    //    public string[] Rol { get; set; } 
+    //}
+    public class ListRol
+    {
+        public string[] Rol = new string[] {"Administrador","Funcionario","Radicador"};
     }
 }

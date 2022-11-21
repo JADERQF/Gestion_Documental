@@ -14,13 +14,12 @@ namespace GestionDocumental.Filters
     [AttributeUsage(AttributeTargets.Method, AllowMultiple = false)]
     public class PermisosRol : AuthorizeAttribute
     {
-        //proyecto_radicadoEntities1 __ConnectBD;
-        private readonly int Id_Rol;
+        //private readonly int[] Id_Rol;
+        private int[] Id_Rol;
 
-        public PermisosRol(int Idrol)
+        public PermisosRol(int[] idrol)
         {
-            // __ConnectBD = new proyecto_radicadoEntities1();
-            this.Id_Rol = Idrol;
+            this.Id_Rol = idrol;
         }
 
         private persona usuario; //objeto tipo persona
@@ -32,13 +31,18 @@ namespace GestionDocumental.Filters
                 usuario = (persona)HttpContext.Current.Session["User"];//obtencion y casteo de la sesión.
                 if (usuario != null)
                 {
-                    //UsuarioId = usuario.Id_Rol; //casteamos el rol del usuario a Roles
-
-                    if (usuario.Id_Rol != this.Id_Rol) //Validamos permisos
+                    int cont = 0;
+                    foreach (int num in this.Id_Rol)
+                    {
+                        if (usuario.Id_Rol == num) //Validamos permisos
+                        {
+                          cont++;
+                        }
+                    }
+                    if (cont == 0)
                     {
                         filterContext.Result = new RedirectResult("~/Login/Denied");
                     }
-
                 }
             }
             catch

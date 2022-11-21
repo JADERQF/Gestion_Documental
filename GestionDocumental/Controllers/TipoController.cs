@@ -19,6 +19,8 @@ namespace GestionDocumental.Controllers
         {
             __ConnectBD = new proyecto_radicadoEntities1();
         }
+
+        [PermisosRol(new int[] { 1 })]
         public ActionResult Index()
         {
             List<ListViewTipo> lista;
@@ -34,12 +36,15 @@ namespace GestionDocumental.Controllers
                          ).ToList();
             return View(lista);
         }
+
+        [PermisosRol(new int[] { 1 })]
         public ActionResult Create()
         {
             return View();
         }
 
         [HttpPost]
+        [PermisosRol(new int[] { 1 })]
         public ActionResult Create(ListViewTipo collection)
         {
             try
@@ -57,6 +62,8 @@ namespace GestionDocumental.Controllers
                 return View();
             }
         }
+
+        [PermisosRol(new int[] { 1 })]
         public ActionResult getId(int id)
         {
             try
@@ -80,6 +87,7 @@ namespace GestionDocumental.Controllers
         }
         [HttpPost]
         [ValidateAntiForgeryToken]
+        [PermisosRol(new int[] { 1 })]
         public ActionResult Edit(ListViewTipo collection)
         {
             try
@@ -101,7 +109,9 @@ namespace GestionDocumental.Controllers
                 throw;
             }
         }
+        
         [HttpGet]
+        [PermisosRol(new int[] { 1 })]
         public ActionResult Delete(int Id)
         {
             try

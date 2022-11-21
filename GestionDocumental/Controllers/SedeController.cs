@@ -1,4 +1,5 @@
-﻿using GestionDocumental.Models;
+﻿using GestionDocumental.Filters;
+using GestionDocumental.Models;
 using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
@@ -16,6 +17,7 @@ namespace GestionDocumental.Controllers
         {
             __ConnectBD = new proyecto_radicadoEntities1();
         }
+        [PermisosRol(new int[] { 1 })]
         // GET: Sede
         public ActionResult Index()
         {
@@ -32,6 +34,8 @@ namespace GestionDocumental.Controllers
                      ).ToList();
             return View(lista);
         }
+
+        [PermisosRol(new int[] { 1 })]
         public static string NombreMunicipio(int Id)
         {
             using (proyecto_radicadoEntities1 db = new proyecto_radicadoEntities1())
@@ -40,12 +44,14 @@ namespace GestionDocumental.Controllers
             }
         }
 
+        [PermisosRol(new int[] { 1 })]
         [HttpGet]
         public ActionResult prueba(int Id)
         {
             return View("Index");
         }
 
+        [PermisosRol(new int[] { 1 })]
         [HttpGet]
         public ActionResult Estado(int Id)
         {
@@ -73,6 +79,8 @@ namespace GestionDocumental.Controllers
                 return View("Error" + ex);
             }
         }
+
+        [PermisosRol(new int[] { 1 })]
         // GET: Sede/Create
         public ActionResult Create()
         {
@@ -113,6 +121,7 @@ namespace GestionDocumental.Controllers
         // POST: Sede/Create
         [HttpPost]
         [ValidateAntiForgeryToken]
+        [PermisosRol(new int[] { 1 })]
         public ActionResult Create(ListViewSede collection)
         {
             try
@@ -163,6 +172,7 @@ namespace GestionDocumental.Controllers
             }
         }
 
+        [PermisosRol(new int[] { 1 })]
         // GET: Sede/Edit/5
         public ActionResult Edit(int id)
         {
@@ -205,6 +215,7 @@ namespace GestionDocumental.Controllers
         // POST: Sede/Edit/5
         [HttpPost]
         [ValidateAntiForgeryToken]
+        [PermisosRol(new int[] { 1 })]
         public ActionResult Editar(ListViewSede collection)
         {
             try
@@ -227,6 +238,7 @@ namespace GestionDocumental.Controllers
             }
         }
 
+        [PermisosRol(new int[] { 1 })]
         // POST: Sede/Delete/5
         [HttpGet]
         public ActionResult Delete(int Id)
