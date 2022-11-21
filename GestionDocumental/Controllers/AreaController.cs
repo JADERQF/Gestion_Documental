@@ -12,6 +12,7 @@ namespace GestionDocumental.Controllers
    
     public class AreaController : Controller
     {
+        [PermisosRol(new int[] { 1 })]
         // GET: Area
         public ActionResult Index()
         {
@@ -30,12 +31,14 @@ namespace GestionDocumental.Controllers
             return View(lista);
         }
 
+        [PermisosRol(new int[] { 1 })]
         // GET: Area/Create
         public ActionResult Create()
         {
             return View();
         }
 
+        [PermisosRol(new int[] { 1 })]
         // POST: Area/Create
         [HttpPost]
         public ActionResult Create(ListViewArea collection)
@@ -66,6 +69,7 @@ namespace GestionDocumental.Controllers
             }
         }
 
+        [PermisosRol(new int[] { 1 })]
         // GET: Area/Edit/5
         public ActionResult Edit(int id)
         {
@@ -93,6 +97,7 @@ namespace GestionDocumental.Controllers
         // POST: Area/Edit/5
         [HttpPost]
         [ValidateAntiForgeryToken]
+        [PermisosRol(new int[] { 1 })]
         public ActionResult Editar(ListViewArea collection)
         {
             try
@@ -121,6 +126,7 @@ namespace GestionDocumental.Controllers
 
         // POST: Area/Delete/5
         [HttpGet]
+        [PermisosRol(new int[] { 1 })]
         public ActionResult Delete(int Id)
         {
             try

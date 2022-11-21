@@ -2,14 +2,9 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Text;
-using System.Web;
 using System.Web.Mvc;
-using System.Web.Services.Description;
 using GestionDocumental.Filters;
 
-
-//David cambio el codigo
 namespace GestionDocumental.Controllers
 {
     public class PersonaController : Controller
@@ -20,7 +15,8 @@ namespace GestionDocumental.Controllers
         {
             __ConnectBD = new proyecto_radicadoEntities1();
         }
-        [PermisosRol(1)]
+
+        [PermisosRol(new int[] {1})]
         // GET: Persona
         public ActionResult Index()
         {
@@ -48,7 +44,7 @@ namespace GestionDocumental.Controllers
                 throw;
             }
         }
-        [PermisosRol(1)]
+
         public ActionResult Create()
         {
             try
@@ -124,7 +120,7 @@ namespace GestionDocumental.Controllers
                 throw;
             }
         }
-        [PermisosRol(1)]
+
         [HttpPost]
         [ValidateAntiForgeryToken]
         public ActionResult Create(ListViewPersona collection)
@@ -220,7 +216,7 @@ namespace GestionDocumental.Controllers
                 throw;
             }
         }
-        [PermisosRol(1)]
+
         [HttpGet]
         public ActionResult Delete(int Id)
         {
@@ -240,7 +236,7 @@ namespace GestionDocumental.Controllers
             }
         } 
 
-        [PermisosRol(1)]
+
         public ActionResult Edit(int id)
         {
             try
@@ -333,7 +329,7 @@ namespace GestionDocumental.Controllers
         }
 
         // POST: Sede/Edit/5
-        [PermisosRol(1)]
+
         [HttpPost]
         [ValidateAntiForgeryToken]
         public ActionResult Update(ListViewPersona collection)
