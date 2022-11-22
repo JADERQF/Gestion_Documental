@@ -34,14 +34,6 @@ namespace GestionDocumental.Filters
                         filterContext.HttpContext.Response.Redirect("~/Login/Login");
                     }
                 }
-                //if (usuario != null)
-                //{
-                //    if (usuario.Id_Rol != this.Id_Rol)
-                //    {
-                //        filterContext.Result = new RedirectResult("~/Login/Denied");
-                //    }
-
-                //}
             }
             catch
             {
